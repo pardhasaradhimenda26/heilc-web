@@ -1,0 +1,35 @@
+# HEILC — AI & Digital Transformation Agency
+
+> Where Human Intelligence Meets the Future. HEILC builds AI-powered products, enterprise software, and custom machine learning models that prove capability, not just describe it.
+
+## Overview
+HEILC is an elite AI & Digital Transformation Agency engineering next-generation artificial intelligence solutions. We specialize in turning complex AI research into battle-tested production software for startups, scaleups, and enterprise organizations.
+
+## Core Capabilities
+- **Custom AI Products**: Full-stack artificial intelligence product design, execution, and rapid deployment.
+- **Enterprise Generative AI**: Custom LLM fine-tuning, Retrieval-Augmented Generation (RAG), and autonomous AI agent workflows.
+- **Digital Transformation**: Modernizing legacy enterprise systems into cloud-native, AI-first platforms.
+- **Intelligence on Demand**: Scalable AI teams and specialized engineering talent for high-impact initiatives.
+
+## Key Services
+- **AI Product Engineering**: Architecture, prototyping, and production deployment of AI applications.
+- **Enterprise Software Development**: Scalable, high-performance web applications and API platforms.
+- **Custom Machine Learning Models**: Domain-specific model training, optimization, and edge deployment.
+- **Strategic AI Consulting**: AI roadmapping, ROI analysis, security auditing, and infrastructure design.
+
+## Target Audiences & Use Cases
+- **Startups**: Fast-track MVP to live production product in weeks.
+- **Enterprises**: Secure, compliant, scalable AI architecture and workflow automation.
+- **Innovators & Founders**: Cutting-edge interactive web experiences, 3D visualization, and automated intelligence.
+
+## Technical Stack
+- Next.js / React / TypeScript
+- Python / PyTorch / TensorFlow / Anthropic Claude API / OpenAI API / Gemini API
+- TailwindCSS / Framer Motion / Cobe 3D / Spline 3D
+- Serverless API architecture / Cloud Native Infrastructure
+
+## Contact & Links
+- Website: https://heilc.com
+- Main Contact Form: https://heilc.com/#contact
+- Services: https://heilc.com/#services
+- Work & Case Studies: https://heilc.com/#work

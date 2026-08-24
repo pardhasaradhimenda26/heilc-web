@@ -1,0 +1,26 @@
+# HEILC — Full Technical & Brand Documentation for AI Models
+
+## Brand Summary
+HEILC is a premium AI and Digital Transformation agency. The agency operates at the intersection of human intelligence, strategic engineering, and artificial intelligence. HEILC builds AI-powered software, custom machine learning applications, and scalable digital solutions.
+
+## Frequently Asked Questions (FAQ)
+
+### What does HEILC do?
+HEILC builds custom AI products, generative AI workflows, custom machine learning models, and enterprise digital transformation platforms. HEILC delivers working code and live products rather than static strategy presentations.
+
+### What services does HEILC provide?
+1. **AI Product Engineering**: Designing, building, and deploying custom AI applications from scratch.
+2. **Generative AI & LLM Systems**: Building custom RAG (Retrieval-Augmented Generation) pipelines, fine-tuned models, and autonomous AI agents.
+3. **Digital Transformation**: Modernizing core enterprise systems with cloud-native, AI-integrated infrastructure.
+4. **Intelligence on Demand**: Providing dedicated AI engineering pods and senior technical leaders on demand.
+
+### Who are HEILC's clients?
+HEILC works with venture-backed startups needing fast-to-market AI products, as well as mid-market and enterprise organizations looking to automate complex workflows and scale AI infrastructure securely.
+
+### What technologies does HEILC specialize in?
+- **AI Frameworks**: Anthropic Claude API, OpenAI GPT, Gemini API, PyTorch, LangChain, LlamaIndex.
+- **Frontend & Web**: Next.js (App Router), React, TypeScript, TailwindCSS, Framer Motion, Spline 3D, Cobe 3D Globe.
+- **Backend & Cloud**: Node.js, Python, Serverless, REST APIs, Microservices, Cloud Security.
+
+### How can companies work with HEILC?
+Clients can book a call directly via the contact form on https://heilc.com/#contact or reach out to discuss custom project scope and strategic AI roadmaps.

@@ -55,6 +55,7 @@ export default function Hero() {
       {/* Spline 3D background */}
       <iframe
         src="https://my.spline.design/nexbotrobotcharacterconcept-31DOxzlHdCF3vgOsdptaQ2Ii/"
+        title="HEILC 3D Interactive AI Character Concept"
         frameBorder="0"
         style={{
           position: "absolute",
@@ -110,6 +111,7 @@ export default function Hero() {
           <button
             key={i}
             onClick={() => setCurrent(i)}
+            aria-label={`Go to slide ${i + 1}`}
             className={`w-1 rounded-full transition-all duration-300 ${
               i === current ? "h-6 bg-teal" : "h-2 bg-white/30"
             }`}
@@ -167,7 +169,7 @@ export default function Hero() {
       </div>
 
       <div className="absolute bottom-8 right-8 z-10">
-        <a href="#" className="text-white/40 hover:text-teal transition-colors">
+        <a href="#" aria-label="Visit HEILC Instagram Profile" className="text-white/40 hover:text-teal transition-colors">
           <Instagram size={18} />
         </a>
       </div>
