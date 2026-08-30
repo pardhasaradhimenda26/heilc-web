@@ -22,10 +22,10 @@ export default function TrustedBy() {
             <span style={{ fontFamily: "var(--font-bebas)" }} className="text-white/10 text-[120px] leading-[0.8]">
               70
             </span>
-            <div className="flex flex-col">
-              <span className="text-white font-medium tracking-wide">TRUSTED BY</span>
-              <span className="text-white/40 text-sm">GLOBAL BRANDS</span>
-            </div>
+            <h2 className="flex flex-col">
+              <span className="text-white font-medium tracking-wide">TRUSTED BY GLOBAL BRANDS</span>
+              <span className="text-white/40 text-sm">Artificial Intelligence & Digital Transformation Leaders</span>
+            </h2>
           </motion.div>
         </div>
 

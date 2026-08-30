@@ -153,7 +153,7 @@ export default function Hero() {
               >
                 {activeSlides[current].sub}
               </span>
-              <span className="sr-only"> — HEILC AI & Digital Transformation Agency: Custom Machine Learning Models & Enterprise Software Engineering</span>
+              <span className="sr-only"> — HEILC Artificial Intelligence Solutions & Digital Transformation Agency</span>
             </h1>
           </motion.div>
         </AnimatePresence>

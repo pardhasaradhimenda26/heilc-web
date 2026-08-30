@@ -156,9 +156,27 @@ export default function About() {
             <p className="text-white/60 text-base leading-relaxed mb-6">
               HEILC is a elite technology consulting agency that turns ambitious ideas into intelligent, scalable digital systems. We specialize in custom AI models, generative AI architectures, digital transformation, enterprise cloud engineering, and operational automation — for organizations that demand measurable business impact.
             </p>
-            <p className="text-white/40 text-sm leading-relaxed mb-8">
+            <p className="text-white/40 text-sm leading-relaxed mb-6">
               Founded on the conviction that human intelligence and synthetic machine capabilities produce unmatched speed, our cross-functional team designs software that proves capability through live performance, secure execution, and high-performance infrastructure.
             </p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 text-white/60 text-xs">
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
+                <span>Artificial Intelligence & Machine Learning</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
+                <span>Enterprise Digital Transformation</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
+                <span>Custom RAG Pipelines & Autonomous Agents</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
+                <span>High-Performance Cloud Architecture</span>
+              </li>
+            </ul>
 
             {/* Stats and Location Row */}
             <div className="flex flex-col gap-8 mb-10 pt-8 border-t border-white/8">

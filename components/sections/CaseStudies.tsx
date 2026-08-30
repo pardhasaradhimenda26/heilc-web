@@ -99,7 +99,10 @@ export default function CaseStudies() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <p className="section-label mb-0">— OUR WORK</p>
+            <p className="section-label mb-1">— OUR WORK</p>
+            <h2 className="text-white font-bold text-xl md:text-2xl tracking-wide uppercase">
+              FEATURED AI & DIGITAL TRANSFORMATION CASE STUDIES
+            </h2>
           </motion.div>
 
           <motion.div

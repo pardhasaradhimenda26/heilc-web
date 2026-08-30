@@ -40,6 +40,18 @@ const faqs: FAQItem[] = [
     answer:
       "Intelligence on Demand provides senior cross-functional AI engineering teams—including AI architects, machine learning engineers, full-stack developers, and UI/UX strategists—working directly alongside your internal leadership. This flexible model enables rapid scaling of technical capabilities without the friction, overhead, and hiring delays of traditional recruiting.",
   },
+  {
+    category: "PERFORMANCE & COST OPTIMIZATION",
+    question: "How does HEILC optimize artificial intelligence inference latency and operational API costs?",
+    answer:
+      "We implement advanced semantic caching, vector database indexing (Milvus, Pinecone, Qdrant), model quantization, intelligent routing between fast local open-source LLMs (Llama 3, Mistral) and frontier APIs (Claude 3.5, GPT-4o), and prompt token pruning. These techniques routinely cut cloud and API operational spend by up to 60% while delivering sub-second response latencies.",
+  },
+  {
+    category: "SUPPORT & SLA TIERS",
+    question: "What ongoing maintenance, SLAs, and model monitoring does HEILC provide post-deployment?",
+    answer:
+      "HEILC provides 24/7 proactive infrastructure monitoring, guaranteed SLA response times, model drift detection, continuous data ingestion and retraining pipelines, and cloud scaling support to ensure your enterprise AI applications maintain enterprise-grade reliability and top accuracy as user demand expands.",
+  },
 ];
 
 export default function FAQ() {

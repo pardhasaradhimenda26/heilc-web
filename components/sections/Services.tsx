@@ -4,12 +4,42 @@ import { ArrowUpRight } from "lucide-react";
 import { usePersona } from "../features/PersonaContext";
 
 const allServices = [
-  { num: "01", title: "AI-Powered Web Platforms", tags: ["LLM", "Next.js", "Claude API"] },
-  { num: "02", title: "Mobile App Development", tags: ["React Native", "Flutter", "iOS/Android"] },
-  { num: "03", title: "Custom LLM & Chatbot Integration", tags: ["Claude", "OpenAI", "RAG"] },
-  { num: "04", title: "Data Analytics & Visualization", tags: ["Python", "D3.js", "PostgreSQL"] },
-  { num: "05", title: "Cloud Infrastructure & DevOps", tags: ["AWS", "Railway", "Vercel"] },
-  { num: "06", title: "UI/UX Design & Prototyping", tags: ["Figma", "Framer", "Design Systems"] },
+  {
+    num: "01",
+    title: "AI-Powered Web Platforms",
+    description: "Next-gen web applications built with Next.js, full LLM integrations, real-time contextual awareness, and high-speed cloud architecture.",
+    tags: ["LLM", "Next.js", "Claude API"],
+  },
+  {
+    num: "02",
+    title: "Mobile App Development",
+    description: "Cross-platform iOS and Android mobile solutions with embedded AI features, smooth native feel, and enterprise backend synchronization.",
+    tags: ["React Native", "Flutter", "iOS/Android"],
+  },
+  {
+    num: "03",
+    title: "Custom LLM & Chatbot Integration",
+    description: "Private RAG pipelines, autonomous agent assistants, fine-tuned models, and intelligent conversational tools tailored to proprietary business data.",
+    tags: ["Claude", "OpenAI", "RAG"],
+  },
+  {
+    num: "04",
+    title: "Data Analytics & Visualization",
+    description: "Interactive real-time data dashboards, predictive analytics engines, custom ML modeling, and automated business reporting.",
+    tags: ["Python", "D3.js", "PostgreSQL"],
+  },
+  {
+    num: "05",
+    title: "Cloud Infrastructure & DevOps",
+    description: "High-availability cloud architecture, serverless microservices, CI/CD pipelines, containerized deployments, and continuous security monitoring.",
+    tags: ["AWS", "Railway", "Vercel"],
+  },
+  {
+    num: "06",
+    title: "UI/UX Design & Prototyping",
+    description: "Futuristic dark-mode UI designs, glassmorphism systems, rapid visual prototyping, and human-centric interface engineering.",
+    tags: ["Figma", "Framer", "Design Systems"],
+  },
 ];
 
 const personaOrder = {
@@ -60,12 +90,17 @@ export default function Services() {
             >
               <div className="flex items-center gap-8">
                 <span className="text-white/20 text-xs font-mono w-6">{svc.num}</span>
-                <h3
-                  className="text-white group-hover:text-teal transition-colors duration-300"
-                  style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(22px,3vw,36px)" }}
-                >
-                  {svc.title}
-                </h3>
+                <div>
+                  <h3
+                    className="text-white group-hover:text-teal transition-colors duration-300"
+                    style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(22px,3vw,36px)" }}
+                  >
+                    {svc.title}
+                  </h3>
+                  <p className="text-white/40 text-xs mt-1 max-w-xl hidden sm:block leading-relaxed">
+                    {svc.description}
+                  </p>
+                </div>
               </div>
               <div className="flex items-center gap-4">
                 <div className="hidden md:flex gap-2">

@@ -5,6 +5,7 @@ export default function Testimonial() {
   return (
     <section className="py-32 bg-[#030303]">
       <div className="max-w-5xl mx-auto px-8 text-center">
+        <h2 className="sr-only">CLIENT TESTIMONIALS & ENTERPRISE SOLUTION REVIEWS</h2>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +34,7 @@ export default function Testimonial() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <p className="section-label mb-8">AS BUILT WITH</p>
+          <h3 className="section-label mb-8">AS BUILT WITH CORE TECHNOLOGIES</h3>
           <div className="flex flex-wrap items-center justify-center gap-8">
             {["React", "Next.js", "Claude AI", "PostgreSQL", "Python", "Node.js", "Vercel"].map((tech) => (
               <span key={tech} className="text-white/25 text-sm font-medium tracking-wide hover:text-white/60 transition-colors cursor-default">
