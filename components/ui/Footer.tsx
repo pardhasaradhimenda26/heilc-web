@@ -2,10 +2,38 @@
 import { motion } from "framer-motion";
 import { Instagram, Twitter, Linkedin, Github } from "lucide-react";
 
-const links = {
-  Services: ["AI Platforms", "Mobile Apps", "LLM Integration", "Data Analytics"],
-  Company: ["About", "Our Work", "Case Studies", "Contact"],
-  Connect: ["LinkedIn", "Instagram", "GitHub", "hello@heilc.com"],
+const socialLinks = [
+  { icon: Linkedin, href: "https://linkedin.com/company/heilc", label: "LinkedIn" },
+  { icon: Instagram, href: "https://instagram.com/heilc", label: "Instagram" },
+  { icon: Github, href: "https://github.com/heilc", label: "GitHub" },
+  { icon: Twitter, href: "https://twitter.com/heilc", label: "Twitter" },
+];
+
+interface NavItem {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+const navigationLinks: Record<string, NavItem[]> = {
+  Services: [
+    { label: "AI Platforms", href: "#services" },
+    { label: "Mobile Apps", href: "#services" },
+    { label: "LLM & RAG Integration", href: "#services" },
+    { label: "Data Analytics", href: "#services" },
+  ],
+  Company: [
+    { label: "About HEILC", href: "#about" },
+    { label: "Capabilities", href: "#capabilities" },
+    { label: "FAQ & Technical Hub", href: "#faq" },
+    { label: "Contact Us", href: "#contact" },
+  ],
+  Ecosystem: [
+    { label: "Next.js Framework", href: "https://nextjs.org", external: true },
+    { label: "OpenAI Platform", href: "https://openai.com", external: true },
+    { label: "Anthropic Claude", href: "https://anthropic.com", external: true },
+    { label: "Google Cloud AI", href: "https://cloud.google.com", external: true },
+  ],
 };
 
 export default function Footer() {
@@ -21,31 +49,39 @@ export default function Footer() {
             >
               HEILC
             </h3>
-            <p className="text-white/30 text-xs leading-relaxed max-w-[180px]">
-              Where Human Intelligence Meets the Future.
+            <p className="text-white/40 text-xs leading-relaxed max-w-[200px]">
+              Where Human Intelligence Meets the Future. Elite AI & Enterprise Software Engineering.
             </p>
             <div className="flex gap-3 mt-6">
-              {[Linkedin, Instagram, Github, Twitter].map((Icon, i) => (
+              {socialLinks.map((item, i) => (
                 <a
                   key={i}
-                  href="#"
-                  className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-teal hover:border-teal/30 transition-all"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`HEILC on ${item.label}`}
+                  className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-teal hover:border-teal/40 transition-all"
                 >
-                  <Icon size={13} />
+                  <item.icon size={13} />
                 </a>
               ))}
             </div>
           </div>
 
           {/* Links */}
-          {Object.entries(links).map(([category, items]) => (
+          {Object.entries(navigationLinks).map(([category, items]) => (
             <div key={category}>
               <p className="text-white/60 text-xs tracking-widest uppercase mb-5">{category}</p>
               <ul className="space-y-3">
                 {items.map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-white/30 text-sm hover:text-white transition-colors">
-                      {item}
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
+                      className="text-white/40 text-sm hover:text-teal transition-colors"
+                    >
+                      {item.label}
                     </a>
                   </li>
                 ))}
@@ -56,11 +92,11 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/20 text-xs">
+          <p className="text-white/30 text-xs">
             © 2026 HEILC. All rights reserved.
           </p>
-          <p className="text-white/20 text-xs tracking-widest uppercase">
-            POWERED BY AI — HEILC
+          <p className="text-white/30 text-xs tracking-widest uppercase">
+            POWERED BY AI & HUMAN INTELLIGENCE — HEILC
           </p>
         </div>
       </div>

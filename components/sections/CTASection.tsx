@@ -27,10 +27,10 @@ export default function CTASection() {
           className="overflow-hidden"
         >
           <h2
-            style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(64px,12vw,140px)", lineHeight: 0.9, letterSpacing: "-0.01em" }}
+            style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(56px,10vw,120px)", lineHeight: 0.9, letterSpacing: "-0.01em" }}
             className="text-white mb-2"
           >
-            START BUILDING
+            START BUILDING YOUR AI FUTURE
           </h2>
           {/* White underline */}
           <div className="flex justify-center mb-10">

@@ -20,7 +20,7 @@ export default function LoadingScreen() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-[#080808]"
         >
           <div className="flex flex-col items-center gap-4">
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -28,7 +28,7 @@ export default function LoadingScreen() {
               className="text-white"
             >
               HEILC
-            </motion.h1>
+            </motion.div>
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}

@@ -130,28 +130,31 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="text-center px-4"
           >
-            <p
-              className="text-white/30 tracking-widest uppercase mb-1"
-              style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(18px,3vw,32px)" }}
-            >
-              {activeSlides[current].faded}
-            </p>
-            <h1
-              className="text-white leading-none"
-              style={{
-                fontFamily: "var(--font-bebas)",
-                fontSize: "clamp(72px,14vw,160px)",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {activeSlides[current].main}
+            <h1 className="text-center">
+              <span
+                className="block text-white/30 tracking-widest uppercase mb-1"
+                style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(18px,3vw,32px)" }}
+              >
+                {activeSlides[current].faded}
+              </span>
+              <span
+                className="block text-white leading-none"
+                style={{
+                  fontFamily: "var(--font-bebas)",
+                  fontSize: "clamp(72px,14vw,160px)",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                {activeSlides[current].main}
+              </span>
+              <span
+                className="block text-white/30 tracking-widest uppercase mt-1"
+                style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(18px,3vw,32px)" }}
+              >
+                {activeSlides[current].sub}
+              </span>
+              <span className="sr-only"> — HEILC AI & Digital Transformation Agency: Custom Machine Learning Models & Enterprise Software Engineering</span>
             </h1>
-            <p
-              className="text-white/30 tracking-widest uppercase mt-1"
-              style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(18px,3vw,32px)" }}
-            >
-              {activeSlides[current].sub}
-            </p>
           </motion.div>
         </AnimatePresence>
       </div>

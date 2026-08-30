@@ -96,28 +96,28 @@ export default function ScrollCanvas() {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <motion.div style={{ opacity: text1Opacity }} className="text-center">
             <p className="text-white/40 text-sm tracking-widest uppercase mb-2">01 — INTELLIGENCE</p>
-            <h2 style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(48px,8vw,96px)" }} className="text-white">
+            <div style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(48px,8vw,96px)" }} className="text-white">
               WHERE HUMAN INTELLIGENCE
-            </h2>
+            </div>
           </motion.div>
         </div>
 
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <motion.div style={{ opacity: text2Opacity }} className="text-center">
-            <h2 style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(48px,8vw,96px)" }} className="text-white">
+            <div style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(48px,8vw,96px)" }} className="text-white">
               MEETS THE FUTURE
-            </h2>
+            </div>
           </motion.div>
         </div>
 
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <motion.div style={{ opacity: text3Opacity }} className="text-center">
-            <h2
+            <div
               style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(64px,12vw,140px)" }}
-              className="text-gradient"
+              className="text-gradient font-bold"
             >
               HEILC
-            </h2>
+            </div>
           </motion.div>
         </div>
 

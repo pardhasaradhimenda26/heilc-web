@@ -9,6 +9,7 @@ import Testimonial from "@/components/sections/Testimonial";
 import GlobeSection from "@/components/sections/GlobeSection";
 import IntelligenceOnDemand from "@/components/sections/IntelligenceOnDemand";
 import About from "@/components/sections/About";
+import FAQ from "@/components/sections/FAQ";
 import CTASection from "@/components/sections/CTASection";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
@@ -29,6 +30,7 @@ export default function Home() {
       <GlobeSection />
       <IntelligenceOnDemand />
       <About />
+      <FAQ />
       <CTASection />
       <Contact />
       <Footer />

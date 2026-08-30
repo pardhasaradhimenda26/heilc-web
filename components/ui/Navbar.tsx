@@ -33,12 +33,18 @@ export default function Navbar() {
       </a>
 
       {/* Center Links */}
-      <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-12">
-        <a href="#work" className="text-white text-xs font-semibold tracking-widest uppercase hover:text-teal transition-colors">
-          WORK
+      <div className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-8">
+        <a href="#capabilities" className="text-white/80 text-xs font-semibold tracking-widest uppercase hover:text-teal transition-colors">
+          CAPABILITIES
         </a>
-        <a href="#about" className="text-white text-xs font-semibold tracking-widest uppercase hover:text-teal transition-colors">
+        <a href="#services" className="text-white/80 text-xs font-semibold tracking-widest uppercase hover:text-teal transition-colors">
+          SERVICES
+        </a>
+        <a href="#about" className="text-white/80 text-xs font-semibold tracking-widest uppercase hover:text-teal transition-colors">
           ABOUT
+        </a>
+        <a href="#faq" className="text-white/80 text-xs font-semibold tracking-widest uppercase hover:text-teal transition-colors">
+          FAQ
         </a>
       </div>
 

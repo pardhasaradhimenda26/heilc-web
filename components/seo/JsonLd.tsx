@@ -1,5 +1,5 @@
 export default function JsonLd() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://heilc.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.heilc.com";
 
   const organizationSchema = {
     "@context": "https://schema.org",

@@ -13,19 +13,19 @@ export default function IntelligenceOnDemand() {
 
       <div className="max-w-7xl mx-auto px-8">
         {/* Split text layout */}
-        <div className="flex items-center justify-between gap-8 mb-16">
+        <h2 className="flex items-center justify-between gap-8 mb-16 font-normal">
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2
+            <span
               style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(48px,8vw,100px)", lineHeight: 0.9 }}
-              className="text-white"
+              className="text-white block"
             >
               INTELLIGENCE
-            </h2>
+            </span>
           </motion.div>
 
           {/* Center orb visual */}
@@ -52,14 +52,14 @@ export default function IntelligenceOnDemand() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2
+            <span
               style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(48px,8vw,100px)", lineHeight: 0.9 }}
-              className="text-gradient text-right"
+              className="text-gradient text-right block"
             >
               ON DEMAND
-            </h2>
+            </span>
           </motion.div>
-        </div>
+        </h2>
 
         {/* Bottom row */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pt-12 border-t border-white/8">

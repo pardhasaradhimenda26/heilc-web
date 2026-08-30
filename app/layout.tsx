@@ -6,7 +6,7 @@ import CustomCursor from "@/components/ui/CustomCursor";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import JsonLd from "@/components/seo/JsonLd";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://heilc.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.heilc.com";
 
 export const viewport: Viewport = {
   themeColor: "#14C5D4",
@@ -38,12 +38,12 @@ export const metadata: Metadata = {
   publisher: "HEILC",
   category: "technology",
   alternates: {
-    canonical: "/",
+    canonical: "https://www.heilc.com",
   },
   openGraph: {
     title: "HEILC — AI & Digital Transformation Agency",
     description:
-      "Where Human Intelligence Meets the Future. HEILC builds AI-powered products that prove capability, not just describe it.",
+      "Where Human Intelligence Meets the Future. HEILC builds AI-powered products, custom machine learning models, and enterprise software that prove capability.",
     url: siteUrl,
     siteName: "HEILC",
     locale: "en_US",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "HEILC — AI & Digital Transformation Agency",
     description:
-      "Where Human Intelligence Meets the Future. HEILC builds AI-powered products that prove capability, not just describe it.",
+      "Where Human Intelligence Meets the Future. HEILC builds AI-powered products, custom machine learning models, and enterprise software that prove capability.",
     creator: "@heilc",
     site: "@heilc",
     images: [`${siteUrl}/icon.png`],
@@ -78,9 +78,14 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    icon: [
+      { url: "/icon.png" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: ["/icon.png"],
+    apple: [
+      { url: "/icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
@@ -93,6 +98,7 @@ export default function RootLayout({
     <html lang="en" className="grain">
       <head>
         <JsonLd />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
