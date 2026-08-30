@@ -172,7 +172,7 @@ export default function Hero() {
       </div>
 
       <div className="absolute bottom-8 right-8 z-10">
-        <a href="#" aria-label="Visit HEILC Instagram Profile" className="text-white/40 hover:text-teal transition-colors">
+        <a href="https://instagram.com/heilc" target="_blank" rel="noopener noreferrer" aria-label="Visit HEILC Instagram Profile" className="text-white/40 hover:text-teal transition-colors">
           <Instagram size={18} />
         </a>
       </div>
@@ -183,13 +183,13 @@ export default function Hero() {
           href="#work"
           className="px-5 py-2.5 sm:px-6 sm:py-3 bg-teal text-black text-xs sm:text-sm font-bold rounded-full hover:opacity-90 transition-opacity block sm:inline-block"
         >
-          View Our Work
+          Explore Case Studies
         </a>
         <a
           href="#contact"
           className="px-5 py-2.5 sm:px-6 sm:py-3 border border-white/20 text-white text-xs sm:text-sm rounded-full hover:border-teal hover:text-teal transition-all block sm:inline-block"
         >
-          Book a Call
+          Schedule AI Discovery Call
         </a>
       </div>
     </section>

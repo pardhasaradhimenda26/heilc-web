@@ -118,9 +118,9 @@ export default function FAQ() {
                     <span className="text-[10px] font-mono tracking-widest text-teal uppercase">
                       {faq.category}
                     </span>
-                    <h3 className="text-white font-semibold text-base md:text-lg pr-4">
+                    <span className="block text-white font-semibold text-base md:text-lg pr-4">
                       {faq.question}
-                    </h3>
+                    </span>
                   </div>
                   <div
                     className={`w-8 h-8 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${

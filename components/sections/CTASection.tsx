@@ -55,7 +55,7 @@ export default function CTASection() {
             href="#contact"
             className="px-8 py-4 bg-teal text-black font-bold text-sm rounded-full hover:opacity-90 transition-opacity"
           >
-            Book a Call
+            Reserve Technical Consultation
           </a>
           <button
             onClick={() => {

@@ -34,7 +34,7 @@ export default function Testimonial() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <h3 className="section-label mb-8">AS BUILT WITH CORE TECHNOLOGIES</h3>
+          <p className="section-label mb-8">AS BUILT WITH CORE TECHNOLOGIES</p>
           <div className="flex flex-wrap items-center justify-center gap-8">
             {["React", "Next.js", "Claude AI", "PostgreSQL", "Python", "Node.js", "Vercel"].map((tech) => (
               <span key={tech} className="text-white/25 text-sm font-medium tracking-wide hover:text-white/60 transition-colors cursor-default">

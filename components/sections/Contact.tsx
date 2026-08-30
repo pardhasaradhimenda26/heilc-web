@@ -90,9 +90,9 @@ export default function Contact() {
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring" }}>
                   <CheckCircle size={48} className="text-teal" />
                 </motion.div>
-                <h3 style={{ fontFamily: "var(--font-bebas)", fontSize: "32px" }} className="text-white">
-                  MESSAGE SENT!
-                </h3>
+                <p style={{ fontFamily: "var(--font-bebas)", fontSize: "32px" }} className="text-white">
+                  Message Sent.
+                </p>
                 <p className="text-white/50 text-sm text-center">
                   We'll get back to you within 24 hours. Get ready to build something great.
                 </p>

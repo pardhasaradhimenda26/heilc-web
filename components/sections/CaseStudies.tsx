@@ -146,7 +146,7 @@ export default function CaseStudies() {
               {/* Content */}
               <div className="p-5">
                 <div className="flex items-start justify-between mb-1">
-                  <h3 className="text-white font-bold text-base">{project.title}</h3>
+                  <span className="block text-white font-bold text-base">{project.title}</span>
                 </div>
                 <p className="text-teal text-xs mb-3">{project.subtitle}</p>
                 <div className="flex flex-wrap gap-1.5 mt-auto">

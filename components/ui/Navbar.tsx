@@ -53,7 +53,7 @@ export default function Navbar() {
         href="#contact" 
         className="hidden md:inline-flex px-6 py-2.5 bg-white text-black hover:bg-white/90 text-xs font-bold tracking-widest uppercase rounded-full transition-colors"
       >
-        LET'S TALK
+        START A PROJECT
       </a>
       
       {/* Mobile let's talk */}
@@ -61,7 +61,7 @@ export default function Navbar() {
         href="#contact" 
         className="md:hidden px-4 py-2 bg-white text-black hover:bg-white/90 text-[10px] font-bold tracking-widest uppercase rounded-full transition-colors"
       >
-        LET'S TALK
+        TALK TO US
       </a>
     </motion.nav>
   );

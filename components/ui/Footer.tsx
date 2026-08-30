@@ -17,16 +17,16 @@ interface NavItem {
 
 const navigationLinks: Record<string, NavItem[]> = {
   Services: [
-    { label: "AI Platforms", href: "#services" },
-    { label: "Mobile Apps", href: "#services" },
-    { label: "LLM & RAG Integration", href: "#services" },
-    { label: "Data Analytics", href: "#services" },
+    { label: "AI Platforms & Web Software", href: "#services" },
+    { label: "Mobile Application Engineering", href: "#services" },
+    { label: "Custom RAG & LLM Integration", href: "#services" },
+    { label: "Analytics & Data Pipelines", href: "#services" },
   ],
   Company: [
-    { label: "About HEILC", href: "#about" },
-    { label: "Capabilities", href: "#capabilities" },
-    { label: "FAQ & Technical Hub", href: "#faq" },
-    { label: "Contact Us", href: "#contact" },
+    { label: "About HEILC Agency", href: "#about" },
+    { label: "Core Technical Capabilities", href: "#capabilities" },
+    { label: "FAQ Knowledge Base", href: "#faq" },
+    { label: "Contact Engineering Team", href: "#contact" },
   ],
   Ecosystem: [
     { label: "Next.js Framework", href: "https://nextjs.org", external: true },
