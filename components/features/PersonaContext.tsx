@@ -167,7 +167,7 @@ export function PersonaProvider({ children }: { children: ReactNode }) {
         return updatedData;
       });
     } catch (err) {
-      console.error("Error refining location:", err);
+      console.warn("Could not refine location:", err);
     } finally {
       setIsRefining(false);
     }
@@ -197,7 +197,7 @@ export function PersonaProvider({ children }: { children: ReactNode }) {
           setDetectionData(JSON.parse(savedDataStr));
           setIsAutoDetected(true);
         } catch (e) {
-          console.error("Error parsing saved detection data", e);
+          console.warn("Could not parse saved detection data:", e);
         }
         setAutoDetecting(false);
         checkGeoPermissionAndRefine();

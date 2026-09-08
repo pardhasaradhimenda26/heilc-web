@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* next/font overrides --font-bebas on <html>; this is the no-JS fallback. */
   --font-bebas: "Bebas Neue", Impact, sans-serif;
   --font-satoshi: "Satoshi", -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -28,6 +27,8 @@ body {
 }
 
 /* Custom cursor */
+/* Position is driven by an inline transform from CustomCursor (compositor
+   only, no layout), so no left/top writes and no transform transition. */
 .cursor-dot {
   width: 8px;
   height: 8px;
@@ -38,8 +39,7 @@ body {
   left: 0;
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.05s ease;
+  will-change: transform;
 }
 
 .cursor-ring {
@@ -52,8 +52,8 @@ body {
   left: 0;
   pointer-events: none;
   z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: all 0.12s ease;
+  will-change: transform;
+  transition: width 0.12s ease, height 0.12s ease, background-color 0.12s ease;
 }
 
 .cursor-ring.hovered {
@@ -76,6 +76,8 @@ body {
   opacity: 0.035;
   pointer-events: none;
   z-index: 9999;
+  /* Keep the grain shuffle on the compositor rather than repainting. */
+  will-change: transform;
   animation: grain 0.5s steps(1) infinite;
 }
 
@@ -170,5 +172,126 @@ body {
     line-height: 0.95;
     letter-spacing: -0.01em;
     text-transform: uppercase;
+  }
+}
+
+/* Skip link — visible only on keyboard focus */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100000;
+  padding: 12px 20px;
+  background: #14c5d4;
+  color: #050505;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 0 0 10px 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Visible focus ring for keyboard users on every interactive element */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid #14c5d4;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Long-form article + detail page typography */
+.prose-heilc {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 16px;
+  line-height: 1.75;
+}
+.prose-heilc h2 {
+  font-family: var(--font-bebas);
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  margin-top: 56px;
+  margin-bottom: 18px;
+}
+.prose-heilc h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 34px;
+  margin-bottom: 12px;
+}
+.prose-heilc p {
+  margin-bottom: 20px;
+}
+.prose-heilc ul,
+.prose-heilc ol {
+  margin: 0 0 24px 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.prose-heilc ul {
+  list-style: none;
+  padding-left: 0;
+}
+.prose-heilc ul > li {
+  position: relative;
+  padding-left: 22px;
+}
+.prose-heilc ul > li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #14c5d4;
+}
+.prose-heilc ol {
+  list-style: decimal;
+}
+.prose-heilc ol > li::marker {
+  color: #14c5d4;
+  font-variant-numeric: tabular-nums;
+}
+.prose-heilc strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+.prose-heilc dl {
+  margin: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.prose-heilc dt {
+  color: #14c5d4;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.prose-heilc dd {
+  margin: 0;
+}
+.prose-heilc a {
+  color: #14c5d4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Respect the OS reduced-motion preference across every animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .grain::before {
+    animation: none !important;
   }
 }
