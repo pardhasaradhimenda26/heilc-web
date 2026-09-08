@@ -85,7 +85,7 @@ export default function ScrollCanvas() {
           <div className="absolute inset-0 bg-[#080808] flex items-center justify-center">
             <div className="flex flex-col items-center gap-4">
               <div className="w-8 h-8 border border-teal border-t-transparent rounded-full animate-spin" />
-              <p className="text-white/30 text-xs tracking-widest">LOADING</p>
+              <p className="text-white/55 text-xs tracking-widest">LOADING</p>
             </div>
           </div>
         )}
@@ -95,7 +95,7 @@ export default function ScrollCanvas() {
         {/* Text overlays */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <motion.div style={{ opacity: text1Opacity }} className="text-center">
-            <p className="text-white/40 text-sm tracking-widest uppercase mb-2">01 — INTELLIGENCE</p>
+            <p className="text-white/60 text-sm tracking-widest uppercase mb-2">01 — INTELLIGENCE</p>
             <div style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(48px,8vw,96px)" }} className="text-white">
               WHERE HUMAN INTELLIGENCE
             </div>
@@ -123,7 +123,7 @@ export default function ScrollCanvas() {
 
         <div className="absolute bottom-16 left-0 right-0 flex justify-center pointer-events-none">
           <motion.div style={{ opacity: text4Opacity }} className="text-center">
-            <p className="text-white/40 text-sm tracking-widest uppercase">Scroll to explore ↓</p>
+            <p className="text-white/60 text-sm tracking-widest uppercase">Scroll to explore ↓</p>
           </motion.div>
         </div>
       </div>

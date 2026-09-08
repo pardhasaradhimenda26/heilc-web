@@ -1,26 +1,156 @@
 # HEILC — Full Technical & Brand Documentation for AI Models
 
-## Brand Summary
-HEILC is a premium AI and Digital Transformation agency. The agency operates at the intersection of human intelligence, strategic engineering, and artificial intelligence. HEILC builds AI-powered software, custom machine learning applications, and scalable digital solutions.
+> Generated from the site's own content modules. Every figure below appears verbatim on the page it links to.
 
-## Frequently Asked Questions (FAQ)
+## Brand summary
+HEILC is an AI and digital transformation agency. It builds custom AI products, machine learning models and the enterprise software they live inside — taking a problem from the decision it has to support through to a deployed, evaluated, monitored system running in the client's own cloud account.
 
-### What does HEILC do?
-HEILC builds custom AI products, generative AI workflows, custom machine learning models, and enterprise digital transformation platforms. HEILC delivers working code and live products rather than static strategy presentations.
+- Website: https://www.heilc.com
+- Contact: hello@heilc.com · https://www.heilc.com/contact
+- Based in: Chennai, Tamil Nadu, India — working worldwide
+- LinkedIn: https://www.linkedin.com/company/heilc
+- GitHub: https://github.com/heilc
+- Instagram: https://www.instagram.com/heilc
+- Twitter/X: https://twitter.com/heilc
 
-### What services does HEILC provide?
-1. **AI Product Engineering**: Designing, building, and deploying custom AI applications from scratch.
-2. **Generative AI & LLM Systems**: Building custom RAG (Retrieval-Augmented Generation) pipelines, fine-tuned models, and autonomous AI agents.
-3. **Digital Transformation**: Modernizing core enterprise systems with cloud-native, AI-integrated infrastructure.
-4. **Intelligence on Demand**: Providing dedicated AI engineering pods and senior technical leaders on demand.
+## Founders
+### Pardhasaradhi Menda — Co-Founder
+Pardhasaradhi Menda co-founded HEILC to close the gap between machine learning that works in a notebook and machine learning that works in production. He leads model development and evaluation across HEILC's engagements: feature engineering and validation strategy on classical ML problems, retrieval architecture and groundedness evaluation on LLM systems, and the evaluation harnesses that decide when a model is actually ready to ship. He built GeneRisk AI, the DNA-sequence cancer risk classifier that reaches 97.37% accuracy on its held-out test set, and led the cinematic-DNA enrichment pipeline behind CineGenome's 3,477-film index. He is direct about what models cannot do, which is usually the more useful half of the conversation.
+Profile: https://www.heilc.com/about#pardhasaradhi-menda
 
-### Who are HEILC's clients?
-HEILC works with venture-backed startups needing fast-to-market AI products, as well as mid-market and enterprise organizations looking to automate complex workflows and scale AI infrastructure securely.
+### Varshith Dondamuri — Co-Founder
+Varshith Dondamuri co-founded HEILC and leads product and platform engineering: the application architecture, API design, cloud infrastructure and delivery pipelines that turn a model into something a business can depend on. His work covers full-stack product development in Next.js and TypeScript, backend services in Node.js and Python, and the deployment and observability layer underneath. He built the CineGenome platform — the FastAPI retrieval service, the Pinecone and MySQL data layer, and the Next.js interface over it — and delivered ResumeAI end to end inside the 24-hour AppXcelerate 1.0 hackathon window, including the three-strategy JSON parser that made its structured model output reliable enough to demo.
+Profile: https://www.heilc.com/about#varshith-dondamuri
 
-### What technologies does HEILC specialize in?
-- **AI Frameworks**: Anthropic Claude API, OpenAI GPT, Gemini API, PyTorch, LangChain, LlamaIndex.
-- **Frontend & Web**: Next.js (App Router), React, TypeScript, TailwindCSS, Framer Motion, Spline 3D, Cobe 3D Globe.
-- **Backend & Cloud**: Node.js, Python, Serverless, REST APIs, Microservices, Cloud Security.
+## Core capabilities
 
-### How can companies work with HEILC?
-Clients can book a call directly via the contact form on https://heilc.com/#contact or reach out to discuss custom project scope and strategic AI roadmaps.
+### Artificial Intelligence Solutions
+An artificial intelligence solution is a system that turns your own data into decisions or generated output — through a fine-tuned model, a retrieval pipeline, or a predictive model — and runs reliably enough for people to depend on it daily.
+Deliverables: Evaluation harness and golden dataset you keep; Model or pipeline deployed in your cloud account; Inference API with authentication and rate limiting; Runbook covering retraining, rollback and cost controls.
+Engagement: Typically a 3–6 week build for a first production system, then bi-weekly iteration sprints. Scope is fixed per sprint; the evaluation set decides what ships.
+URL: https://www.heilc.com/services/artificial-intelligence-solutions
+
+### Digital Transformation & Modernization
+Digital transformation is the incremental replacement of manual or legacy workflows with systems that are observable, integrable and cheap to change — done without a big-bang rewrite that stops the business.
+Deliverables: Current-state architecture map and prioritised migration plan; API gateway and integration layer over existing systems; Infrastructure-as-code repository and CI/CD pipelines; Cutover and rollback plan per workflow.
+Engagement: Discovery in 1–2 weeks, then workflow-by-workflow delivery in bi-weekly sprints. Each sprint ends with something in production.
+URL: https://www.heilc.com/services/digital-transformation-and-modernization
+
+### Enterprise Software Engineering
+Enterprise software engineering is building systems where correctness, access control and operability matter as much as features — because the software will outlive the team that wrote it.
+Deliverables: Production application in your cloud account and repository; API documentation generated from the source schema; Test suite and CI pipeline; Architecture decision records for every significant choice.
+Engagement: 3–6 weeks to a usable production release for a focused scope, then continuous delivery in bi-weekly sprints.
+URL: https://www.heilc.com/services/enterprise-software-engineering
+
+### Intelligent Automation Solutions
+Intelligent automation is applying extraction, classification and routing models to the repetitive steps in a business process, with explicit confidence thresholds that decide when a human still needs to look.
+Deliverables: Baseline measurement of the current manual process; Automation pipeline with confidence thresholds and review queue; Operator dashboard showing straight-through-processing rate; Feedback loop that turns corrections into evaluation data.
+Engagement: Two-week baseline and pilot on a single workflow, then expansion once the straight-through rate is proven.
+URL: https://www.heilc.com/services/intelligent-automation-solutions
+
+## What HEILC builds
+
+### AI-Powered Web Platforms
+An AI-powered web platform is a normal, fast, accessible web application in which model-driven features — search, generation, summarisation — are first-class product surfaces rather than a bolted-on chat widget.
+Deliverables: Production Next.js application with server-rendered content; Model-backed endpoints with streaming, rate limiting and observability; Design system components matching your brand; Lighthouse and Core Web Vitals report at handover.
+Engagement: 4–8 weeks for a first public release, depending on surface area.
+URL: https://www.heilc.com/services/ai-powered-web-platforms
+
+### Mobile App Development
+Cross-platform mobile development means one React Native or Flutter codebase producing iOS and Android builds that behave like native apps, sharing the same API and authentication layer as your web product.
+Deliverables: iOS and Android builds from a single codebase; Store listings, signing and release automation; Crash reporting and analytics instrumentation; Offline sync layer and API client.
+Engagement: 6–10 weeks to first store submission for a focused feature set.
+URL: https://www.heilc.com/services/mobile-app-development
+
+### Custom LLM & Chatbot Integration
+A custom LLM integration is an assistant grounded in your own content: it retrieves from your documents, cites what it used, refuses what it cannot support, and runs inside infrastructure you control.
+Deliverables: Ingestion and indexing pipeline for your document sources; Assistant API and embeddable UI; Evaluation set with groundedness and citation scoring; Cost and latency dashboard.
+Engagement: 3–6 weeks to a grounded assistant on a first document corpus.
+URL: https://www.heilc.com/services/custom-llm-and-chatbot-integration
+
+### Data Analytics & Visualization
+Analytics engineering is the work between raw source data and a chart: modelling it into tested, documented tables so that every dashboard in the business computes the same number the same way.
+Deliverables: Warehouse schema and tested transformation repository; Dashboards for the questions your team actually asks; Predictive models with backtest reports; Data quality alerting.
+Engagement: 3–5 weeks to a first modelled domain and dashboard set.
+URL: https://www.heilc.com/services/data-analytics-and-visualization
+
+### Cloud Infrastructure & DevOps
+Cloud and DevOps work is making deployment boring: infrastructure defined in code, releases automated and reversible, and enough observability that incidents are diagnosed from dashboards rather than guesswork.
+Deliverables: Infrastructure-as-code repository covering all environments; CI/CD pipelines with automated rollback; Observability stack with dashboards and alert routing; Incident runbooks and on-call handover documentation.
+Engagement: 2–4 weeks for a platform baseline; ongoing support under an SLA tier.
+URL: https://www.heilc.com/services/cloud-infrastructure-and-devops
+
+### UI/UX Design & Prototyping
+Product design here means a component-level design system and working prototypes, delivered in the same language as the code, so what is designed is what ships.
+Deliverables: Design token set and component library; Clickable prototype of primary flows; Accessibility annotations for keyboard and screen-reader behaviour; Implementation-ready specifications.
+Engagement: 2–4 weeks for a design system and prototype of core flows.
+URL: https://www.heilc.com/services/ui-ux-design-and-prototyping
+
+## Case studies
+
+### GeneRisk AI — ML-Powered Cancer Risk Prediction
+Problem: Genomic risk screening is dominated by tooling built for bioinformaticians: command-line pipelines, file formats nobody outside the lab reads, and turnaround measured in hours. The people who need the answer — clinicians, researchers running a first-pass triage — are not the people the tooling was designed for. We wanted to find out whether a well-engineered gradient-boosted model behind a plain web interface could return a defensible risk classification from a DNA sequence in under a second, without asking the user to learn a pipeline.
+Outcome: GeneRisk AI classifies a submitted DNA sequence at 97.37% accuracy on held-out test data and returns the result, with model confidence and contributing features, in about a second — through a browser, with no bioinformatics pipeline for the user to install or operate.
+Metrics: 97.37% (Classification accuracy on held-out test data); <1s (Typical end-to-end prediction response time); 1 API (Flask service backing both dashboard and batch use).
+Stack: Machine learning: Python, XGBoost, scikit-learn, NumPy, pandas | Backend: Flask, REST API, Gunicorn | Frontend: React, Vite, Chart rendering | Infrastructure: Railway, Container deployment.
+URL: https://www.heilc.com/case-studies/generisk-ai
+
+### CineGenome — AI Film Recommendation Platform
+Problem: Collaborative filtering recommends what people like you also watched. It cannot explain why, it collapses on films with thin viewing histories, and it has nothing useful to say when your request is 'something that feels like this one, but not the same story'. Taste in film is multi-dimensional — you can love a film's cinematography and be indifferent to its plot — and a single similarity score flattens all of that into one number.
+Outcome: CineGenome holds structured cinematic DNA profiles for 3,477 films across four independent dimensions, and answers similarity queries from cached vectors rather than live model calls — so recommendations are explainable by axis and cost nothing per query beyond retrieval.
+Metrics: 3,477 (Films decomposed into cinematic DNA profiles); 4 (Independent dimensions per film: visual, narrative, audio, emotional); 1 pass (Enrichment cost model — analysis cached, never recomputed per query).
+Stack: AI & retrieval: Anthropic Claude API, Pinecone, Vector embeddings | Backend: FastAPI, Python, MySQL | Frontend: Next.js, React, TypeScript, Tailwind CSS | Infrastructure: Serverless deployment, Batch enrichment pipeline.
+URL: https://www.heilc.com/case-studies/cinegenome
+
+### ResumeAI — AI Resume Builder with ATS Scoring
+Problem: Most applicants never reach a human reader: an applicant tracking system parses the file first, and a resume that survives that parse looks different from one designed to impress a person. Candidates get no feedback on which of the two they have written. The build constraint was equally concrete — one 24-hour hackathon at AppXcelerate 1.0, so every architectural decision had to be defensible in minutes rather than debated.
+Outcome: ResumeAI went from concept to a working, demonstrable build inside the 24-hour AppXcelerate 1.0 window: users generate resume sections against a target job description, see an ATS compatibility score update as they edit, and the three-strategy parser keeps malformed model output from surfacing as a failure.
+Metrics: 24 hours (Concept to working build at AppXcelerate 1.0); 3 (Fallback strategies in the JSON parsing chain); Live (ATS compatibility score recomputed as the user edits).
+Stack: AI: Groq, LLaMA, Structured output parsing | Backend: Node.js, Express, REST API | Frontend: React, Tailwind CSS, Client-side scoring engine | Delivery: 24-hour hackathon build, AppXcelerate 1.0.
+URL: https://www.heilc.com/case-studies/resumeai
+
+## Frequently asked questions
+
+### What custom AI and digital transformation solutions does HEILC engineer?
+HEILC builds four things: retrieval-augmented generation (RAG) systems over private document sets, fine-tuned and prompt-engineered LLM applications, classical machine learning models for prediction and classification, and the enterprise software those models live inside. A typical engagement covers the whole path — data ingestion, evaluation harness, model or pipeline, API, interface, deployment and monitoring — rather than a model handed over as a notebook. Our own products show the range: GeneRisk AI is an XGBoost classifier at 97.37% held-out accuracy served through a Flask API, and CineGenome is a Claude-plus-Pinecone retrieval system over 3,477 enriched film profiles.
+
+### How does HEILC ensure data privacy, security, and IP protection?
+Three commitments. First, deployment location: models and pipelines run inside your own AWS, GCP or Azure account, on your VPC, so training data and prompts never traverse a HEILC-controlled system. Second, ownership: the contract assigns you the repository, the model weights, the training data and the documentation — we retain no licence-back and there is no proprietary runtime you must keep paying for. Third, engineering practice: TLS in transit and cloud-KMS encryption at rest, least-privilege IAM with short-lived credentials, secrets in a managed store rather than environment files, automated dependency and container scanning in CI, and immutable audit logs on privileged actions. That is SOC 2 and HIPAA-readiness posture — we build systems that can pass an audit; obtaining the certification remains your process, and we will not claim otherwise.
+
+### What is the typical development timeline for an enterprise AI MVP?
+Three to six weeks to a production MVP for a focused scope, then bi-weekly iteration sprints. Week one is discovery and the evaluation set: we collect real queries or records and define what 'correct' means before writing model code, because that set is what decides when the project is done. Weeks two and three build the pipeline and a usable interface against it. Weeks four to six harden — authentication, rate limiting, observability, CI/CD, rollback. The variables that move that range are data readiness and access approvals, not engineering capacity; if your data needs cleaning or a security review has to clear first, we tell you at week one rather than at week five.
+
+### Can HEILC integrate custom AI models with existing enterprise legacy systems?
+Yes, and without a rewrite. We use the strangler pattern: an API layer goes in front of the legacy system, one workflow moves behind it at a time, and the old path is retired only once the new one carries real traffic. In practice that means REST or GraphQL bridges over legacy ERP, CRM and database systems; change-data-capture or event streams where a dual write would risk inconsistency; and an anti-corruption layer so legacy data models do not leak into the new services. Every migration step is independently reversible and sequenced lowest-business-risk first. If a legacy system works and costs little to run, we will tell you to leave it alone — modernisation has to be justified by integration cost, change velocity or compliance exposure.
+
+### How does HEILC's 'Intelligence on Demand' pod model operate?
+A pod is a small cross-functional team — typically an AI architect, a machine learning engineer, a full-stack engineer and a product designer — embedded with your team for a fixed monthly commitment rather than billed per ticket. The pod works in your repository, your issue tracker and your standups, commits directly, and is accountable for outcomes in your backlog rather than for a statement of work negotiated in advance. Engagements run in bi-weekly sprints with a written plan at the start and a demo at the end; you can resize or end the pod at a sprint boundary. The point is to add senior capability in days instead of the three to six months a comparable hire takes, without the pod becoming a black box you cannot inspect.
+
+### How does HEILC optimize AI inference latency and operational API costs?
+Five techniques, applied in order of payoff. Semantic caching first — repeated and near-duplicate queries are extremely common in enterprise assistants, and a cache hit costs nothing and returns instantly. Then model routing: classify the difficulty of a request and send the easy majority to a small open model such as Llama or Mistral, reserving frontier APIs for what genuinely needs them. Then prompt and context pruning, since retrieved context is usually the largest and most compressible part of the token bill. Then retrieval tuning — better chunking and reranking mean fewer passages carried into the prompt. Finally quantisation and batching for self-hosted models. We instrument cost per query and p50/p95 latency before optimising, so the improvement is measured against your own baseline rather than a general claim.
+
+### What ongoing maintenance, SLAs, and model monitoring does HEILC provide post-deployment?
+Support is tiered and written into the contract rather than assumed. A standard tier covers business-hours response with a next-business-day target on non-critical issues; a critical tier covers 24/7 paging with a one-hour acknowledgement target on production-down incidents. Every tier includes the same monitoring baseline: uptime and error-rate alerting, p95 latency tracking, input and output drift detection against the launch evaluation set, cost-per-query dashboards with spend alerts, and dependency and security patching. Model quality is re-scored against the golden evaluation set on a schedule and after any provider model update, so degradation is caught by a failing check rather than by a user complaint. Retraining and re-indexing pipelines are handed over as documented, runnable jobs — you are not dependent on us to run them.
+
+### Who does HEILC work with, and what makes a project a good fit?
+We work with startups that need a first AI product in production quickly, and with mid-market and enterprise teams automating workflows or modernising legacy systems. A project fits well when there is a named decision the software has to support, data that already exists in some form, and someone on your side empowered to answer questions within a day. A project fits badly when the goal is 'adopt AI' without a workflow attached, when the required data has not been collected yet, or when success has no definition anyone will commit to in writing. We would rather say that at the first call than discover it in week four.
+
+### How does HEILC price engagements?
+Two shapes. Fixed-scope projects are quoted after a paid discovery week that produces an architecture, an evaluation definition and a sprint plan — quoting before that step means quoting a guess. Ongoing work uses the Intelligence on Demand pod model at a fixed monthly rate per pod, resizable at sprint boundaries. Cloud and model-provider costs are billed to your own accounts rather than marked up through us, so you can see exactly what the system costs to run. We publish no rate card because scope varies too widely for one to be honest; you get a written quote after discovery, and the discovery output is yours whether or not you continue.
+
+## Insight articles
+
+### How RAG Pipelines Work for Enterprise Search
+Retrieval-augmented generation (RAG) is a technique that answers a question by first retrieving relevant passages from your own documents, then asking a language model to answer using only those passages — so the answer is grounded in your content and can cite where it came from.
+Published 2026-01-14. URL: https://www.heilc.com/insights/how-rag-pipelines-work-for-enterprise-search
+
+### LLM Fine-Tuning vs. RAG: When to Use Each
+Fine-tuning changes how a model behaves; retrieval-augmented generation changes what a model knows at the moment it answers. Facts that change belong in retrieval, behaviour that must be consistent belongs in fine-tuning, and most production systems need both.
+Published 2026-02-04. URL: https://www.heilc.com/insights/llm-fine-tuning-vs-rag-when-to-use-each
+
+### AI Agency Selection Checklist for Enterprises
+Choosing an AI development partner comes down to six verifiable things: shipped production systems, a stated evaluation method, explicit data and IP terms, a named team, an honest cost model, and a handover plan that leaves you independent.
+Published 2026-03-03. URL: https://www.heilc.com/insights/ai-agency-selection-checklist-for-enterprises
+
+## What HEILC does not claim
+HEILC publishes no client logos, review counts, star ratings, award claims or press mentions, because none are independently verifiable. Figures on the site name the dataset or constraint they were measured under.

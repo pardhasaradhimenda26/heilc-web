@@ -11,7 +11,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open the dev server printed in your terminal (http://localhost:3000 by default).
 
 ## Add Your Assets
 

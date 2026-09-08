@@ -1,9 +1,13 @@
 "use client";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function CTASection() {
   return (
-    <section className="py-32 bg-[#030303] relative overflow-hidden">
+    <section
+      aria-labelledby="cta-heading"
+      className="py-32 bg-[#030303] relative overflow-hidden"
+    >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent to-teal/30" />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-t from-transparent to-teal/30" />
@@ -27,6 +31,7 @@ export default function CTASection() {
           className="overflow-hidden"
         >
           <h2
+            id="cta-heading"
             style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(56px,10vw,120px)", lineHeight: 0.9, letterSpacing: "-0.01em" }}
             className="text-white mb-2"
           >
@@ -51,13 +56,14 @@ export default function CTASection() {
           transition={{ delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="px-8 py-4 bg-teal text-black font-bold text-sm rounded-full hover:opacity-90 transition-opacity"
           >
-            Reserve Technical Consultation
-          </a>
+            Book a technical consultation
+          </Link>
           <button
+            type="button"
             onClick={() => {
               const btn = document.querySelector('[data-chatbot]') as HTMLButtonElement;
               btn?.click();

@@ -1,12 +1,26 @@
 import type { Metadata, Viewport } from "next";
+import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
+
 import { PersonaProvider } from "@/components/features/PersonaContext";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
 import LoadingScreen from "@/components/ui/LoadingScreen";
-import JsonLd from "@/components/seo/JsonLd";
+import { OG_IMAGE, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.heilc.com";
+/**
+ * Self-hosted at build time via next/font, which removes the render-blocking
+ * fonts.googleapis.com stylesheet the head used to carry and preloads the
+ * font file instead. `--font-bebas` is the variable the whole design already
+ * references.
+ */
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-bebas",
+  fallback: ["Impact", "sans-serif"],
+});
 
 export const viewport: Viewport = {
   themeColor: "#14C5D4",
@@ -14,57 +28,48 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const defaultTitle = "HEILC — AI & Digital Transformation Agency";
+const defaultDescription =
+  "HEILC is an AI and digital transformation agency building custom AI products, machine learning models and enterprise software — from evaluation to production.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  // Every relative URL in per-page metadata resolves against the canonical origin.
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "HEILC — AI & Digital Transformation Agency",
+    default: defaultTitle,
     template: "%s | HEILC",
   },
-  description:
-    "Where Human Intelligence Meets the Future. HEILC builds AI-powered products, custom machine learning models, and enterprise software that prove capability.",
-  keywords: [
-    "AI agency",
-    "digital transformation",
-    "machine learning",
-    "enterprise software",
-    "generative AI",
-    "AI product development",
-    "HEILC",
-    "artificial intelligence consulting",
-    "custom AI solutions",
-  ],
-  authors: [{ name: "HEILC Team", url: siteUrl }],
+  description: defaultDescription,
+  applicationName: SITE_NAME,
+  authors: [{ name: "HEILC", url: SITE_URL }],
   creator: "HEILC",
   publisher: "HEILC",
   category: "technology",
-  alternates: {
-    canonical: "https://www.heilc.com",
-  },
+  alternates: { canonical: SITE_URL },
   openGraph: {
-    title: "HEILC — AI & Digital Transformation Agency",
-    description:
-      "Where Human Intelligence Meets the Future. HEILC builds AI-powered products, custom machine learning models, and enterprise software that prove capability.",
-    url: siteUrl,
-    siteName: "HEILC",
+    title: defaultTitle,
+    description: defaultDescription,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: `${siteUrl}/icon.png`,
-        width: 512,
-        height: 512,
-        alt: "HEILC AI & Digital Transformation Agency",
+        url: absoluteUrl(OG_IMAGE.url),
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        alt: OG_IMAGE.alt,
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HEILC — AI & Digital Transformation Agency",
-    description:
-      "Where Human Intelligence Meets the Future. HEILC builds AI-powered products, custom machine learning models, and enterprise software that prove capability.",
+    title: defaultTitle,
+    description: defaultDescription,
     creator: "@heilc",
     site: "@heilc",
-    images: [`${siteUrl}/icon.png`],
+    images: [absoluteUrl(OG_IMAGE.url)],
   },
   robots: {
     index: true,
@@ -78,14 +83,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: "/icon.png" },
-      { url: "/favicon.ico" },
-    ],
+    icon: [{ url: "/icon.png" }],
     shortcut: ["/icon.png"],
-    apple: [
-      { url: "/icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -95,22 +95,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="grain">
+    <html lang="en" className={`grain ${bebasNeue.variable}`}>
       <head>
-        <JsonLd />
         <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body>
+        <a href="#main" className="skip-link">
+          Skip to main content
+        </a>
         <PersonaProvider>
           <SmoothScroll>
             <LoadingScreen />
@@ -122,4 +114,3 @@ export default function RootLayout({
     </html>
   );
 }
-

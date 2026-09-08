@@ -13,7 +13,35 @@ const CITY_LABELS: Record<string, string> = {
 
 export default function GlobeSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [loaded, setLoaded] = useState(false);
+  // The globe is a WebGL scene with a continuous render loop and it sits well
+  // below the fold. Starting it on mount cost main-thread time before the
+  // visitor had scrolled anywhere near it, so it now waits until it is close
+  // to the viewport.
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
   const { detectionData } = usePersona();
   const country = detectionData?.country || "IN";
   const label = detectionData?.city 
@@ -25,6 +53,8 @@ export default function GlobeSection() {
   const userLon = detectionData?.longitude;
 
   useEffect(() => {
+    if (!inView) return;
+
     let phi = 0;
     if (!canvasRef.current) return;
 
@@ -89,7 +119,9 @@ export default function GlobeSection() {
 
       setLoaded(true);
     } catch (e) {
-      console.error("Globe failed to initialize:", e);
+      // No WebGL context (headless, blocked, or software rendering): the
+      // section degrades to its static content rather than failing loudly.
+      console.warn("Globe unavailable, skipping 3D render:", e);
     }
 
     return () => {
@@ -99,10 +131,10 @@ export default function GlobeSection() {
       window.removeEventListener("resize", onResize);
       setLoaded(false);
     };
-  }, [userLat, userLon]);
+  }, [inView, userLat, userLon]);
 
   return (
-    <section className="py-32 bg-[#030303] relative overflow-hidden">
+    <section ref={sectionRef} className="py-32 bg-[#030303] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
@@ -157,28 +189,28 @@ export default function GlobeSection() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-white/30 text-xs mb-1">Location</p>
+                  <p className="text-white/55 text-xs mb-1">Location</p>
                   <p className="text-white font-semibold text-sm">{label}</p>
                 </div>
                 <div>
-                  <p className="text-white/30 text-xs mb-1">Market Type</p>
+                  <p className="text-white/55 text-xs mb-1">Market Type</p>
                   <p className="text-teal font-semibold text-sm">
                     {isStartup ? "Startup Ecosystem" : "Enterprise Market"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-white/30 text-xs mb-1">Country Code</p>
+                  <p className="text-white/55 text-xs mb-1">Country Code</p>
                   <p className="text-white font-semibold text-sm">{country}</p>
                 </div>
                 <div>
-                  <p className="text-white/30 text-xs mb-1">Adapted To</p>
+                  <p className="text-white/55 text-xs mb-1">Adapted To</p>
                   <p className="text-white font-semibold text-sm">
                     {isStartup ? "Startup Mode" : "Enterprise Mode"}
                   </p>
                 </div>
               </div>
             </div>
-            <p className="text-white/30 text-xs tracking-widest uppercase mb-3">
+            <p className="text-white/55 text-xs tracking-widest uppercase mb-3">
               GLOBAL REACH
             </p>
             <div className="flex flex-wrap gap-2">
@@ -194,7 +226,7 @@ export default function GlobeSection() {
                   className={`px-3 py-1.5 rounded-full text-xs border transition-all ${
                     country === c.code
                       ? "border-teal text-teal bg-teal/10"
-                      : "border-white/10 text-white/30"
+                      : "border-white/10 text-white/55"
                   }`}>
                   {c.label}
                 </span>
