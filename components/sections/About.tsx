@@ -1,13 +1,20 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { usePersona } from "../features/PersonaContext";
 import { Compass } from "lucide-react";
+import { FOUNDERS } from "@/lib/content/team";
 
+/**
+ * Each figure is paired with the claim it supports and rendered as a
+ * definition pair, so the number is never an orphaned string.
+ */
 const stats = [
-  { num: "10+", label: "Projects Delivered" },
-  { num: "3", label: "AI Products Live" },
-  { num: "100%", label: "Built & Deployed" },
+  { num: "10+", label: "Projects delivered" },
+  { num: "3", label: "AI products built end to end" },
+  { num: "97.37%", label: "GeneRisk AI held-out accuracy" },
 ];
 
 export default function About() {
@@ -105,7 +112,7 @@ export default function About() {
   }, [detectionData?.timezone]);
 
   return (
-    <section id="about" ref={ref} className="py-32 bg-[#0A0A0A] overflow-hidden">
+    <section id="about" ref={ref} aria-labelledby="about-heading" className="py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left image with parallax */}
@@ -116,13 +123,13 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="relative h-[500px] rounded-2xl overflow-hidden"
           >
-            <motion.div
-              style={{ y: imgY }}
-              className="absolute inset-0 bg-cover bg-center scale-110"
-            >
-              <div
-                className="w-full h-full bg-cover bg-center"
-                style={{ backgroundImage: "url(/assets/about-bg.jpg)" }}
+            <motion.div style={{ y: imgY }} className="absolute inset-0 scale-110">
+              <Image
+                src="/assets/about-bg.jpg"
+                alt="The HEILC engineering workspace"
+                fill
+                sizes="(max-width: 1024px) 100vw, 600px"
+                className="object-cover"
               />
             </motion.div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/60 to-transparent" />
@@ -130,8 +137,11 @@ export default function About() {
             {/* Founder chip */}
             <div className="absolute bottom-6 left-6 glass-card rounded-xl px-4 py-3">
               <p className="text-teal text-xs mb-1">FOUNDED BY</p>
-              <p className="text-white text-sm font-semibold">Pardhasaradhi Menda</p>
-              <p className="text-white text-sm font-semibold">Varshith Dondamuri</p>
+              {FOUNDERS.map((founder) => (
+                <p key={founder.slug} className="text-white text-sm font-semibold">
+                  {founder.name}
+                </p>
+              ))}
             </div>
           </motion.div>
 
@@ -144,20 +154,29 @@ export default function About() {
           >
             <p className="section-label mb-6">— 05 WHO WE ARE</p>
             <h2
+              id="about-heading"
               style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(40px,5.5vw,68px)", lineHeight: 0.95 }}
               className="text-white mb-6"
             >
-              WE DON'T FOLLOW
+              WE DON&apos;T FOLLOW
               <br />
               <span className="text-gradient">TRENDS.</span>
               <br />
               WE BUILD THEM.
             </h2>
             <p className="text-white/60 text-base leading-relaxed mb-6">
-              HEILC is a elite technology consulting agency that turns ambitious ideas into intelligent, scalable digital systems. We specialize in custom AI models, generative AI architectures, digital transformation, enterprise cloud engineering, and operational automation — for organizations that demand measurable business impact.
+              HEILC is a technology engineering agency that turns ambitious ideas
+              into systems people can depend on. We build custom machine learning
+              models, retrieval and generative AI architectures, legacy
+              modernisation, cloud infrastructure and process automation — and we
+              measure each one against an evaluation set agreed before the work
+              starts.
             </p>
-            <p className="text-white/40 text-sm leading-relaxed mb-6">
-              Founded on the conviction that human intelligence and synthetic machine capabilities produce unmatched speed, our cross-functional team designs software that proves capability through live performance, secure execution, and high-performance infrastructure.
+            <p className="text-white/60 text-sm leading-relaxed mb-6">
+              Founded on the conviction that human judgement and machine
+              capability compound, our team ships software that proves itself in
+              production: deployed in your own cloud account, monitored after
+              launch, and documented well enough that you could run it without us.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 text-white/60 text-xs">
               <li className="flex items-center gap-2">
@@ -182,7 +201,7 @@ export default function About() {
             <div className="flex flex-col gap-8 mb-10 pt-8 border-t border-white/8">
               
               {/* Stats */}
-              <div className="flex-1 grid grid-cols-3 gap-6">
+              <dl className="flex-1 grid grid-cols-3 gap-6">
                 {stats.map((stat, i) => (
                   <motion.div
                     key={stat.label}
@@ -191,16 +210,18 @@ export default function About() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 + i * 0.1 }}
                   >
-                    <p
+                    <dd
                       style={{ fontFamily: "var(--font-bebas)", fontSize: "42px" }}
                       className="text-gradient leading-none mb-1"
                     >
                       {stat.num}
-                    </p>
-                    <p className="text-white/40 text-[10px] uppercase tracking-wider">{stat.label}</p>
+                    </dd>
+                    <dt className="text-white/60 text-[10px] uppercase tracking-wider">
+                      {stat.label}
+                    </dt>
                   </motion.div>
                 ))}
-              </div>
+              </dl>
 
               {/* Location Widget */}
               <motion.div 
@@ -211,7 +232,7 @@ export default function About() {
                 className="glass-card rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 sm:gap-6 min-w-0 sm:min-w-[280px] w-full max-w-md"
               >
                 <div className="flex-1">
-                  <p className="text-white/40 text-[10px] tracking-widest uppercase mb-1">LOCAL TIME</p>
+                  <p className="text-white/60 text-[10px] tracking-widest uppercase mb-1">LOCAL TIME</p>
                   <p className="text-white font-medium text-sm mb-0.5">
                     {detectionData?.city || "Current Location"}
                   </p>
@@ -222,9 +243,9 @@ export default function About() {
                   <button
                     onClick={refineLocation}
                     disabled={isRefining}
-                    className="inline-flex items-center gap-1.5 text-[10px] text-teal/80 hover:text-teal font-semibold tracking-wider uppercase transition-colors disabled:opacity-50 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-[10px] text-teal hover:text-teal font-semibold tracking-wider uppercase transition-colors disabled:opacity-50 cursor-pointer"
                   >
-                    <Compass size={10} className={isRefining ? "animate-spin" : ""} />
+                    <Compass size={10} aria-hidden="true" className={isRefining ? "animate-spin" : ""} />
                     {isRefining ? "Refining..." : "Refine by Signal"}
                   </button>
                 </div>
@@ -261,12 +282,20 @@ export default function About() {
 
             </div>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-teal text-black font-bold text-sm rounded-full hover:opacity-90 transition-opacity"
-            >
-              Work With Us
-            </a>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-teal text-black font-bold text-sm rounded-full hover:opacity-90 transition-opacity"
+              >
+                Work With Us
+              </Link>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white text-sm rounded-full hover:border-teal hover:text-teal transition-all"
+              >
+                Meet the founders
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>

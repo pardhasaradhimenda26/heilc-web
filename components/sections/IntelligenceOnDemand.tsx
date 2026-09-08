@@ -1,10 +1,14 @@
 "use client";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 export default function IntelligenceOnDemand() {
   return (
-    <section className="relative py-32 bg-[#080808] overflow-hidden">
+    <section
+      aria-labelledby="iod-heading"
+      className="relative py-32 bg-[#080808] overflow-hidden"
+    >
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
@@ -13,7 +17,7 @@ export default function IntelligenceOnDemand() {
 
       <div className="max-w-7xl mx-auto px-8">
         {/* Split text layout */}
-        <h2 className="flex items-center justify-between gap-8 mb-16 font-normal">
+        <h2 id="iod-heading" className="flex items-center justify-between gap-8 mb-16 font-normal">
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -69,20 +73,23 @@ export default function IntelligenceOnDemand() {
             viewport={{ once: true }}
             className="text-white/50 text-base leading-relaxed max-w-md"
           >
-            AI-crafted solutions, available for any industry, any scale. An exclusive agency redefining technology with limitless, on-demand intelligence.
+            A cross-functional pod — AI architect, ML engineer, full-stack
+            engineer, product designer — embedded with your team on a fixed
+            monthly commitment. Senior capability in days rather than the three
+            to six months a comparable hire takes.
           </motion.p>
           <motion.a
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            href="#services"
+            href="/faq#intelligence-on-demand"
             className="flex items-center gap-2 text-white hover:text-teal transition-colors group"
           >
             <span className="text-sm tracking-widest uppercase border-b border-white/30 group-hover:border-teal pb-1 transition-colors">
-              Explore Our Services
+              How the pod model works
             </span>
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={16} aria-hidden="true" className="group-hover:translate-x-1 transition-transform" />
           </motion.a>
         </div>
       </div>

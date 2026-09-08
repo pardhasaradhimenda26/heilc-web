@@ -1,68 +1,25 @@
 "use client";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { ChevronDown, HelpCircle } from "lucide-react";
+import { FAQS } from "@/lib/content/faq";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-  category: string;
-}
-
-const faqs: FAQItem[] = [
-  {
-    category: "AI & ML ENGINEERING",
-    question: "What custom AI and digital transformation solutions does HEILC engineer?",
-    answer:
-      "HEILC specializes in end-to-end artificial intelligence engineering, custom machine learning model development, Retrieval-Augmented Generation (RAG) architecture, private LLM fine-tuning, autonomous agent orchestration, and full-stack enterprise digital transformation. We turn complex data pipelines into real-time operational intelligence for scalable business outcomes.",
-  },
-  {
-    category: "ENTERPRISE SECURITY",
-    question: "How does HEILC ensure data privacy, security, and IP protection?",
-    answer:
-      "Security and intellectual property protection are embedded into every layer of our engineering methodology. We deploy private models inside your dedicated cloud environment (AWS, GCP, or Azure), ensuring zero third-party data leakage, full SOC2/HIPAA compliance readiness, end-to-end data encryption, and complete customer ownership of trained model weights and codebases.",
-  },
-  {
-    category: "TIMELINES & EXECUTION",
-    question: "What is the typical development timeline for an enterprise AI MVP?",
-    answer:
-      "Our agile engineering pods deliver fully functional custom AI prototypes and MVPs in as little as 3 to 6 weeks. Following initial deployment, we iterate rapidly in bi-weekly sprints—scaling from proof-of-concept validation to high-availability production deployment with full CI/CD pipelines, automated testing, and continuous monitoring.",
-  },
-  {
-    category: "INTEGRATION & ARCHITECTURE",
-    question: "Can HEILC integrate custom AI models with existing enterprise legacy systems?",
-    answer:
-      "Yes. Our modernization team designs cloud-native microservices, custom RESTful and GraphQL API bridges, and event-driven data architectures that seamlessly connect cutting-edge AI models with legacy ERPs, CRMs, databases, and enterprise software stack without requiring disruptive overhauls of existing infrastructure.",
-  },
-  {
-    category: "ENGAGEMENT MODELS",
-    question: "How does HEILC's 'Intelligence on Demand' pod model operate?",
-    answer:
-      "Intelligence on Demand provides senior cross-functional AI engineering teams—including AI architects, machine learning engineers, full-stack developers, and UI/UX strategists—working directly alongside your internal leadership. This flexible model enables rapid scaling of technical capabilities without the friction, overhead, and hiring delays of traditional recruiting.",
-  },
-  {
-    category: "PERFORMANCE & COST OPTIMIZATION",
-    question: "How does HEILC optimize artificial intelligence inference latency and operational API costs?",
-    answer:
-      "We implement advanced semantic caching, vector database indexing (Milvus, Pinecone, Qdrant), model quantization, intelligent routing between fast local open-source LLMs (Llama 3, Mistral) and frontier APIs (Claude 3.5, GPT-4o), and prompt token pruning. These techniques routinely cut cloud and API operational spend by up to 60% while delivering sub-second response latencies.",
-  },
-  {
-    category: "SUPPORT & SLA TIERS",
-    question: "What ongoing maintenance, SLAs, and model monitoring does HEILC provide post-deployment?",
-    answer:
-      "HEILC provides 24/7 proactive infrastructure monitoring, guaranteed SLA response times, model drift detection, continuous data ingestion and retraining pipelines, and cloud scaling support to ensure your enterprise AI applications maintain enterprise-grade reliability and top accuracy as user demand expands.",
-  },
-];
-
+/**
+ * Homepage accordion. Answer text is ALWAYS in the DOM — the panel is
+ * collapsed with an animated height rather than unmounted — so every answer
+ * ships in the server-rendered HTML and matches the FAQPage schema exactly.
+ * `aria-hidden` keeps collapsed panels out of the accessibility tree.
+ */
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const toggle = (i: number) => {
-    setOpenIndex(openIndex === i ? null : i);
-  };
+  const [openId, setOpenId] = useState<string | null>(FAQS[0]?.id ?? null);
 
   return (
-    <section id="faq" className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/6">
+    <section
+      id="faq"
+      aria-labelledby="faq-heading"
+      className="py-24 bg-[#050505] relative overflow-hidden border-t border-white/6"
+    >
       <div className="max-w-5xl mx-auto px-8 relative z-10">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <motion.div
@@ -71,16 +28,21 @@ export default function FAQ() {
             viewport={{ once: true }}
             className="flex items-center justify-center gap-2 mb-4"
           >
-            <HelpCircle className="text-teal" size={18} />
+            <HelpCircle className="text-teal" size={18} aria-hidden="true" />
             <span className="section-label">TECHNICAL KNOWLEDGE BASE</span>
           </motion.div>
-          
+
           <motion.h2
+            id="faq-heading"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(36px,5vw,64px)", lineHeight: 1 }}
+            style={{
+              fontFamily: "var(--font-bebas)",
+              fontSize: "clamp(36px,5vw,64px)",
+              lineHeight: 1,
+            }}
             className="text-white mb-4"
           >
             FREQUENTLY ASKED <span className="text-gradient">QUESTIONS</span>
@@ -93,61 +55,87 @@ export default function FAQ() {
             transition={{ delay: 0.2 }}
             className="text-white/50 text-sm leading-relaxed"
           >
-            Everything you need to know about partnering with HEILC for custom AI products, model fine-tuning, security compliance, and enterprise engineering.
+            Security, IP ownership, timelines, integration, cost and SLAs —
+            answered specifically. The{" "}
+            <Link href="/faq" className="text-teal underline underline-offset-2 hover:text-white">
+              full FAQ page
+            </Link>{" "}
+            has every answer written out in one place.
           </motion.p>
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, i) => {
-            const isOpen = openIndex === i;
+          {FAQS.map((faq, i) => {
+            const isOpen = openId === faq.id;
             return (
               <motion.div
-                key={i}
+                key={faq.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ delay: Math.min(i, 5) * 0.08 }}
                 className="glass-card rounded-2xl overflow-hidden border border-white/8 hover:border-teal/30 transition-all duration-300"
               >
-                <button
-                  onClick={() => toggle(i)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
-                  aria-expanded={isOpen}
-                >
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono tracking-widest text-teal uppercase">
-                      {faq.category}
-                    </span>
-                    <span className="block text-white font-semibold text-base md:text-lg pr-4">
-                      {faq.question}
-                    </span>
-                  </div>
-                  <div
-                    className={`w-8 h-8 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 bg-teal/20 border-teal/40 text-teal" : "text-white/40"
-                    }`}
+                <h3>
+                  <button
+                    type="button"
+                    onClick={() => setOpenId(isOpen ? null : faq.id)}
+                    className="w-full p-6 text-left flex items-center justify-between gap-4"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${faq.id}`}
+                    id={`faq-button-${faq.id}`}
                   >
-                    <ChevronDown size={16} />
-                  </div>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    <span className="space-y-1">
+                      <span className="block text-[10px] font-mono tracking-widest text-teal uppercase">
+                        {faq.category}
+                      </span>
+                      <span className="block text-white font-semibold text-base md:text-lg pr-4">
+                        {faq.question}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={`w-8 h-8 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
+                        isOpen
+                          ? "rotate-180 bg-teal/20 border-teal/40 text-teal"
+                          : "text-white/60"
+                      }`}
                     >
-                      <div className="px-6 pb-6 pt-2 border-t border-white/5 text-white/60 text-sm leading-relaxed">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      <ChevronDown size={16} />
+                    </span>
+                  </button>
+                </h3>
+
+                {/*
+                  Always rendered. `grid-template-rows` animates from 0fr to
+                  1fr, which collapses the panel without removing the text.
+                */}
+                <div
+                  id={`faq-panel-${faq.id}`}
+                  role="region"
+                  aria-labelledby={`faq-button-${faq.id}`}
+                  aria-hidden={!isOpen}
+                  className="grid transition-[grid-template-rows] duration-300 ease-in-out"
+                  style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-6 pb-6 pt-2 border-t border-white/5 text-white/60 text-sm leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             );
           })}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link
+            href="/faq"
+            className="inline-flex px-6 py-3 border border-white/20 text-white text-sm rounded-full hover:border-teal hover:text-teal transition-all"
+          >
+            Read the full FAQ
+          </Link>
         </div>
       </div>
     </section>

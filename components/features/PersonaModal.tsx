@@ -77,7 +77,7 @@ export default function PersonaModal() {
           >
             <button
               onClick={handleDismiss}
-              className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
+              className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
             >
               <X size={20} />
             </button>
@@ -93,7 +93,7 @@ export default function PersonaModal() {
               WHO ARE YOU?
             </h2>
             <p className="text-white/50 text-sm mb-8">
-              We'll tailor HEILC's story to match your goals.
+              We&apos;ll tailor HEILC&apos;s story to match your goals.
             </p>
             <div className="grid grid-cols-3 gap-3">
               {personas.map((p) => (
@@ -109,7 +109,7 @@ export default function PersonaModal() {
                     <p.icon size={18} style={{ color: p.color }} />
                   </div>
                   <span className="text-white font-semibold text-sm">{p.label}</span>
-                  <span className="text-white/40 text-xs">{p.desc}</span>
+                  <span className="text-white/60 text-xs">{p.desc}</span>
                 </button>
               ))}
             </div>

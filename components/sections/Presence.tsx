@@ -23,7 +23,7 @@ export default function Presence() {
         >
           INTELLIGENCE
           <br />
-          <span className="text-white/30">WITHOUT BORDERS</span>
+          <span className="text-white/55">WITHOUT BORDERS</span>
         </motion.h2>
       </div>
 
@@ -72,8 +72,8 @@ export default function Presence() {
         transition={{ delay: 0.4 }}
         className="z-10 text-center"
       >
-        <p className="text-white/30 text-xs md:text-sm tracking-[0.2em] font-medium">
-          CHENNAI <span className="mx-3 text-white/10">·</span> SAN FRANCISCO <span className="mx-3 text-white/10">·</span> LONDON <span className="mx-3 text-white/10">·</span> SINGAPORE
+        <p className="text-white/55 text-xs md:text-sm tracking-[0.2em] font-medium">
+          CHENNAI <span aria-hidden="true" className="mx-3 text-white/10">·</span> SAN FRANCISCO <span aria-hidden="true" className="mx-3 text-white/10">·</span> LONDON <span aria-hidden="true" className="mx-3 text-white/10">·</span> SINGAPORE
         </p>
       </motion.div>
     </section>
