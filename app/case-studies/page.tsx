@@ -104,18 +104,15 @@ export default function CaseStudiesPage() {
 
                   <dl className="flex flex-wrap gap-x-10 gap-y-4">
                     {study.metrics.map((metric) => (
-                      <div key={metric.label}>
-                        <dt className="sr-only">{metric.label}</dt>
-                        <dd>
-                          <span
-                            style={{ fontFamily: "var(--font-bebas)", fontSize: "32px" }}
-                            className="text-gradient leading-none block"
-                          >
-                            {metric.value}
-                          </span>
-                          <span className="text-white/60 text-[11px] block max-w-[190px] mt-1">
-                            {metric.label}
-                          </span>
+                      <div key={metric.label} className="flex flex-col-reverse">
+                        <dt className="text-white/60 text-[11px] block max-w-[190px] mt-1">
+                          {metric.label}
+                        </dt>
+                        <dd
+                          style={{ fontFamily: "var(--font-bebas)", fontSize: "32px" }}
+                          className="text-gradient leading-none block"
+                        >
+                          {metric.value}
                         </dd>
                       </div>
                     ))}

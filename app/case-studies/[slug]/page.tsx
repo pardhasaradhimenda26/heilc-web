@@ -119,8 +119,9 @@ export default function CaseStudyPage({ params }: Props) {
           {study.metrics.map((metric) => (
             <div
               key={metric.label}
-              className="glass-card rounded-2xl p-6 border border-white/8"
+              className="glass-card rounded-2xl p-6 border border-white/8 flex flex-col-reverse"
             >
+              <dt className="text-white/60 text-xs leading-relaxed">{metric.label}</dt>
               <dd>
                 <span
                   style={{ fontFamily: "var(--font-bebas)", fontSize: "48px" }}
@@ -129,7 +130,6 @@ export default function CaseStudyPage({ params }: Props) {
                   {metric.value}
                 </span>
               </dd>
-              <dt className="text-white/60 text-xs leading-relaxed">{metric.label}</dt>
             </div>
           ))}
         </dl>

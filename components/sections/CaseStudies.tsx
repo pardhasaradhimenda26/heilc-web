@@ -175,16 +175,16 @@ export default function CaseStudies() {
         {/* Proof points — number and label as one unit */}
         <dl className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/10 pt-8 pb-20">
           {proofPoints.map((point) => (
-            <div key={point.label}>
+            <div key={point.label} className="flex flex-col-reverse">
+              <dt className="text-[#E0E0E0]/60 text-xs leading-relaxed">
+                {point.label}
+              </dt>
               <dd
                 style={{ fontFamily: "var(--font-bebas)", fontSize: "36px" }}
                 className="text-gradient leading-none mb-1"
               >
                 {point.value}
               </dd>
-              <dt className="text-[#E0E0E0]/60 text-xs leading-relaxed">
-                {point.label}
-              </dt>
             </div>
           ))}
         </dl>

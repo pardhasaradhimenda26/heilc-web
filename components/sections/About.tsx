@@ -209,16 +209,17 @@ export default function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 + i * 0.1 }}
+                    className="flex flex-col-reverse"
                   >
+                    <dt className="text-white/60 text-[10px] uppercase tracking-wider">
+                      {stat.label}
+                    </dt>
                     <dd
                       style={{ fontFamily: "var(--font-bebas)", fontSize: "42px" }}
                       className="text-gradient leading-none mb-1"
                     >
                       {stat.num}
                     </dd>
-                    <dt className="text-white/60 text-[10px] uppercase tracking-wider">
-                      {stat.label}
-                    </dt>
                   </motion.div>
                 ))}
               </dl>
