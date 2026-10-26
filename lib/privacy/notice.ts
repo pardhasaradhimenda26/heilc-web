@@ -157,7 +157,7 @@ export const PROCESSORS: Processor[] = [
   { name: "Supabase", role: "Account sign-in and database", location: "Region chosen at setup (Mumbai, India recommended)" },
   { name: "Vercel", role: "Website hosting and delivery", location: "Global edge network" },
   { name: "Groq (and Anthropic as fallback)", role: "Generates assistant replies and proposals", location: "United States" },
-  { name: "Resend", role: "Delivers request notifications to the HEILC team", location: "United States" },
+  { name: "Resend", role: "Sends sign-in codes and delivers request notifications to the HEILC team", location: "United States (sending region: Tokyo, Japan)" },
   { name: "Google and Meta (Facebook)", role: "Only if you choose them to sign in; they confirm your identity", location: "As per their own policies" },
   { name: "Spline", role: "Serves the 3D robot on the homepage (receives your IP address as any web request does)", location: "As per their own policy" },
 ];
