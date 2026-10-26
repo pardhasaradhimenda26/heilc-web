@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 /**
- * The chat launcher and persona modal are interaction overlays, not page
+ * The chat launcher and privacy-choices banner are interaction overlays, not page
  * content — nothing a crawler needs and nothing visible above the fold. They
  * were hydrating alongside the rest of the page and adding to Total Blocking
  * Time, so they now load once the browser is idle (or on first interaction,
  * whichever comes first).
  */
 const ChatBot = dynamic(() => import("./ChatBot"), { ssr: false });
-const PersonaModal = dynamic(() => import("./PersonaModal"), { ssr: false });
+const ConsentBanner = dynamic(() => import("../privacy/ConsentBanner"), { ssr: false });
 
 export default function DeferredOverlays() {
   const [ready, setReady] = useState(false);
@@ -46,7 +46,7 @@ export default function DeferredOverlays() {
   return (
     <>
       <ChatBot />
-      <PersonaModal />
+      <ConsentBanner />
     </>
   );
 }

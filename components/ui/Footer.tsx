@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Instagram, Twitter, Linkedin, Github } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/site";
+import PrivacyChoicesButton from "@/components/privacy/PrivacyChoicesButton";
 import { CAPABILITIES, OFFERINGS } from "@/lib/content/services";
 import { CASE_STUDIES } from "@/lib/content/case-studies";
 
@@ -114,9 +115,13 @@ export default function Footer() {
           <p className="text-white/55 text-xs">
             © {new Date().getFullYear()} HEILC. All rights reserved.
           </p>
-          <p className="text-white/55 text-xs tracking-widest uppercase">
-            Human intelligence, engineered with AI
-          </p>
+          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/55">
+            <Link href="/privacy" className="hover:text-teal transition-colors">Privacy notice</Link>
+            <Link href="/terms" className="hover:text-teal transition-colors">Terms</Link>
+            <Link href="/grievance" className="hover:text-teal transition-colors">Grievance redressal</Link>
+            <Link href="/data-deletion" className="hover:text-teal transition-colors">Delete my data</Link>
+            <PrivacyChoicesButton className="hover:text-teal transition-colors" />
+          </nav>
         </div>
       </div>
     </footer>

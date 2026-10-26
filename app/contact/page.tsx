@@ -13,7 +13,7 @@ import {
   webPageSchema,
 } from "@/lib/schema";
 
-const title = "Contact HEILC";
+const title = "Contact an AI & Digital Agency in Chennai";
 const description =
   "Talk to the engineers who would do the work. Tell us the problem, the data you already have and the constraint — we reply within one business day.";
 

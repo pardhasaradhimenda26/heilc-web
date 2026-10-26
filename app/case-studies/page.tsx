@@ -16,7 +16,7 @@ import {
   webPageSchema,
 } from "@/lib/schema";
 
-const title = "AI Case Studies";
+const title = "AI Case Studies: GeneRisk, CineGenome, ResumeAI";
 const description =
   "Three products HEILC designed and shipped: a 97.37%-accuracy DNA risk classifier, a 3,477-film retrieval engine, and a resume builder delivered in 24 hours.";
 

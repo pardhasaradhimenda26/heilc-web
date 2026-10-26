@@ -1,21 +1,10 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import ProposalGenerator from "../features/ProposalGenerator";
 import { CASE_STUDIES, badgeTextColor } from "@/lib/content/case-studies";
-
-const industries = [
-  "Healthcare",
-  "FinTech",
-  "EdTech",
-  "E-Commerce",
-  "Real Estate",
-  "HR & Recruitment",
-  "SaaS",
-  "Logistics",
-];
 
 /** Each number is bound to its own label so it is never an orphaned figure. */
 const proofPoints = [
@@ -25,43 +14,6 @@ const proofPoints = [
 ];
 
 export default function CaseStudies() {
-  const [industry, setIndustry] = useState("");
-  const [problem, setProblem] = useState("");
-  const [proposal, setProposal] = useState("");
-  const [generating, setGenerating] = useState(false);
-
-  const generateProposal = async () => {
-    if (!industry || !problem.trim()) return;
-    setGenerating(true);
-    setProposal("");
-
-    try {
-      const res = await fetch("/api/casegen", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ industry, problem }),
-      });
-
-      if (res.status === 429) {
-        setProposal("Please wait a moment before generating another proposal.");
-        setGenerating(false);
-        return;
-      }
-
-      const reader = res.body?.getReader();
-      const decoder = new TextDecoder();
-
-      while (reader) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        setProposal((prev) => prev + decoder.decode(value));
-      }
-    } catch {
-      setProposal("Error generating proposal. Please try again.");
-    }
-    setGenerating(false);
-  };
-
   return (
     <section id="work" aria-labelledby="work-heading" className="py-32 bg-[#030303]">
       <div className="max-w-7xl mx-auto px-8">
@@ -189,101 +141,7 @@ export default function CaseStudies() {
           ))}
         </dl>
 
-        {/* Proposal Generator */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="glass-card rounded-2xl p-8 md:p-12"
-          style={{ border: "1px solid rgba(20,197,212,0.2)" }}
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <Sparkles size={20} className="text-teal" aria-hidden="true" />
-            <p className="section-label">LIVE PROPOSAL GENERATOR</p>
-          </div>
-          <h3
-            style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(28px,4vw,48px)" }}
-            className="text-white mb-2"
-          >
-            GET YOUR CUSTOM HEILC PROPOSAL
-          </h3>
-          <p className="text-white/60 text-sm mb-8">
-            Tell us your industry and challenge. HEILC AI writes a branded
-            solution proposal in seconds.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label htmlFor="proposal-industry" className="block text-white/50 text-xs mb-2">
-                Your industry
-              </label>
-              <select
-                id="proposal-industry"
-                value={industry}
-                onChange={(e) => setIndustry(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-teal/40 transition-colors appearance-none"
-              >
-                <option value="" className="bg-[#111]">
-                  Select your industry
-                </option>
-                {industries.map((ind) => (
-                  <option key={ind} value={ind} className="bg-[#111]">
-                    {ind}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex items-end">
-              <button
-                type="button"
-                onClick={generateProposal}
-                disabled={!industry || !problem.trim() || generating}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-teal text-black font-bold text-sm rounded-xl disabled:opacity-40 hover:opacity-90 transition-opacity"
-              >
-                {generating ? (
-                  <>
-                    <span
-                      aria-hidden="true"
-                      className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"
-                    />
-                    Generating…
-                  </>
-                ) : (
-                  <>
-                    <Sparkles size={16} aria-hidden="true" />
-                    Generate Proposal
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-
-          <label htmlFor="proposal-problem" className="block text-white/50 text-xs mb-2">
-            Your business challenge
-          </label>
-          <textarea
-            id="proposal-problem"
-            value={problem}
-            onChange={(e) => setProblem(e.target.value)}
-            placeholder="Describe your business challenge or what you want to build..."
-            rows={3}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/50 outline-none focus:border-teal/40 transition-colors resize-none mb-4"
-          />
-
-          {proposal && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              role="status"
-              aria-live="polite"
-              className="mt-6 p-6 rounded-xl bg-white/3 border border-teal/20"
-            >
-              <p className="text-white/80 text-sm leading-relaxed whitespace-pre-wrap">
-                {proposal}
-              </p>
-            </motion.div>
-          )}
-        </motion.div>
+        <ProposalGenerator />
       </div>
     </section>
   );

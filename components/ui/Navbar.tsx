@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 const navLinks = [
   { label: "SERVICES", href: "/services" },
@@ -10,6 +11,36 @@ const navLinks = [
   { label: "ABOUT", href: "/about" },
   { label: "FAQ", href: "/faq" },
 ];
+
+function AccountControl() {
+  const { enabled, ready, user, firstName, openAuth } = useAuth();
+  if (!enabled || !ready) return null;
+  if (user) {
+    return (
+      <Link
+        href="/account"
+        aria-label={`Your account${firstName ? `, ${firstName}` : ""}`}
+        className="flex items-center gap-2 text-white/85 hover:text-teal transition-colors"
+      >
+        <span className="w-8 h-8 rounded-full bg-teal/15 border border-teal/40 flex items-center justify-center text-teal text-xs font-bold">
+          {(firstName ?? user.email ?? "?").charAt(0).toUpperCase()}
+        </span>
+        <span className="hidden sm:inline text-xs font-semibold tracking-wider uppercase">
+          {firstName ? `Hi, ${firstName}` : "Finish setup"}
+        </span>
+      </Link>
+    );
+  }
+  return (
+    <button
+      type="button"
+      onClick={() => openAuth()}
+      className="text-white/80 text-xs font-semibold tracking-widest uppercase hover:text-teal transition-colors"
+    >
+      Sign in
+    </button>
+  );
+}
 
 export default function Navbar() {
   return (
@@ -55,7 +86,9 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Right CTA */}
+      {/* Right side: account + CTA */}
+      <div className="flex items-center gap-4 md:gap-6">
+      <AccountControl />
       <Link
         href="/contact"
         className="hidden md:inline-flex px-6 py-2.5 bg-white text-black hover:bg-white/90 text-xs font-bold tracking-widest uppercase rounded-full transition-colors"
@@ -70,6 +103,7 @@ export default function Navbar() {
       >
         TALK TO US
       </Link>
+      </div>
     </motion.nav>
   );
 }
