@@ -2,80 +2,48 @@ import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-function mapToPersona(
-  country: string,
-  referrer: string,
-  language: string
-): { persona: string; reason: string } {
-  // Referral source signals (strongest signal)
-  if (referrer.includes("linkedin.com")) {
-    return { persona: "enterprise", reason: "LinkedIn referral" };
-  }
-  if (referrer.includes("github.com") || referrer.includes("dev.to")) {
+/**
+ * Region-based persona hint, from the hosting platform's own request headers.
+ * Called only after the visitor allows personalisation. Nothing is logged or
+ * stored here, and no third-party geolocation service is involved.
+ */
+function mapToPersona(country: string, referrer: string): { persona: string; reason: string } {
+  if (referrer.includes("linkedin.com")) return { persona: "enterprise", reason: "LinkedIn referral" };
+  if (referrer.includes("github.com") || referrer.includes("dev.to"))
     return { persona: "startup", reason: "Developer community referral" };
-  }
-  if (
-    referrer.includes("college") ||
-    referrer.includes("university") ||
-    referrer.includes("edu")
-  ) {
+  if (/\b(edu|ac\.in|college|university)\b/.test(referrer))
     return { persona: "student", reason: "Education referral" };
-  }
 
-  // Country-based mapping
-  const enterpriseCountries = [
-    "US", "GB", "DE", "JP", "SG", "AU",
-    "CA", "FR", "NL", "SE", "CH", "AE",
-  ];
-  const startupCountries = [
-    "IN", "NG", "BR", "ID", "PK", "BD",
-    "PH", "VN", "KE", "EG", "ZA",
-  ];
-
-  if (enterpriseCountries.includes(country)) {
-    return { persona: "enterprise", reason: `Enterprise market (${country})` };
-  }
-  if (startupCountries.includes(country)) {
-    return { persona: "startup", reason: `Startup ecosystem (${country})` };
-  }
-
-  // Language-based fallback
-  if (language.startsWith("en-US") || language.startsWith("en-GB")) {
-    return { persona: "enterprise", reason: "English enterprise locale" };
-  }
-
-  return { persona: "startup", reason: "Default" };
+  const enterprise = ["US", "GB", "DE", "JP", "SG", "AU", "CA", "FR", "NL", "SE", "CH", "AE"];
+  if (enterprise.includes(country)) return { persona: "enterprise", reason: `Region (${country})` };
+  return { persona: "startup", reason: `Region (${country})` };
 }
 
 export async function GET(req: NextRequest) {
-  // Vercel provides these automatically on deployment
   const country = req.headers.get("x-vercel-ip-country") || "IN";
-  const city =
-    req.headers.get("x-vercel-ip-city") || "Chennai";
-  const region =
-    req.headers.get("x-vercel-ip-country-region") || "TN";
-  const referrer = req.headers.get("referer") || "";
-  const language = req.headers.get("accept-language") || "en-IN";
+  const rawCity = req.headers.get("x-vercel-ip-city");
+  const city = rawCity ? decodeURIComponent(rawCity) : "Chennai";
+  const region = req.headers.get("x-vercel-ip-country-region") || "TN";
   const timezone = req.headers.get("x-vercel-ip-timezone") || "Asia/Kolkata";
+  const lat = Number(req.headers.get("x-vercel-ip-latitude"));
+  const lon = Number(req.headers.get("x-vercel-ip-longitude"));
+  const referrer = req.headers.get("referer") || "";
 
-  const { persona, reason } = mapToPersona(country, referrer, language);
+  const { persona, reason } = mapToPersona(country, referrer);
 
-  return Response.json({
-    country,
-    city,
-    region,
-    timezone,
-    language: language.split(",")[0],
-    referrer: referrer || "direct",
-    detectedPersona: persona,
-    reason,
-    signals: {
-      fromLinkedIn: referrer.includes("linkedin"),
-      fromGitHub: referrer.includes("github"),
-      isEnterpriseCountry: [
-        "US","GB","DE","JP","SG","AU","CA","FR",
-      ].includes(country),
-      isStartupEcosystem: ["IN","NG","BR","ID"].includes(country),
+  return Response.json(
+    {
+      country,
+      city,
+      region,
+      timezone,
+      detectedPersona: persona,
+      reason,
+      // City-level and rounded — enough for the globe marker, nothing finer.
+      ...(Number.isFinite(lat) && Number.isFinite(lon) && lat !== 0
+        ? { latitude: Math.round(lat * 10) / 10, longitude: Math.round(lon * 10) / 10 }
+        : {}),
     },
-  });
+    { headers: { "Cache-Control": "private, no-store" } },
+  );
 }

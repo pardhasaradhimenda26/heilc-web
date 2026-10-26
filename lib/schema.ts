@@ -28,7 +28,7 @@ const LOGO_URL = absoluteUrl("/assets/heilc-logo.png");
 const OG_URL = absoluteUrl(OG_IMAGE.url);
 
 const ORG_DESCRIPTION =
-  "HEILC is an AI and digital transformation agency that builds custom AI products, machine learning models, and enterprise software — from evaluation harness through to production deployment.";
+  "HEILC is an AI and digital transformation agency in Chennai, India that builds custom AI products, LLM chatbots, machine learning models, web and mobile apps, and enterprise software — from evaluation harness through to production deployment, for clients worldwide.";
 
 export function personSchema(member: TeamMember) {
   return {
@@ -51,7 +51,12 @@ export function organizationSchema() {
     "@id": ORGANIZATION_ID,
     name: SITE_NAME,
     legalName: "HEILC",
-    alternateName: "HEILC AI & Digital Transformation Agency",
+    alternateName: [
+      "HEILC AI & Digital Transformation Agency",
+      "HEILC Digital Agency",
+      "HEILC AI Agency",
+    ],
+    slogan: "Where Human Intelligence Meets the Future",
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
@@ -78,7 +83,12 @@ export function organizationSchema() {
     },
     knowsAbout: [
       "Artificial Intelligence",
+      "Generative AI",
+      "AI Chatbot Development",
       "Machine Learning",
+      "Web Application Development",
+      "Mobile App Development",
+      "UI/UX Design",
       "Retrieval-Augmented Generation",
       "Large Language Model Fine-Tuning",
       "Digital Transformation",
@@ -114,6 +124,8 @@ export function localBusinessSchema() {
       longitude: BUSINESS_LOCATION.longitude,
     },
     areaServed: [
+      { "@type": "City", name: "Chennai" },
+      { "@type": "State", name: "Tamil Nadu" },
       { "@type": "Country", name: "India" },
       { "@type": "Place", name: "Worldwide" },
     ],
@@ -153,6 +165,8 @@ export function serviceSchema(service: Service) {
     category: service.group === "capability" ? "Core capability" : "Build offering",
     provider: { "@id": ORGANIZATION_ID },
     areaServed: [
+      { "@type": "City", name: "Chennai" },
+      { "@type": "State", name: "Tamil Nadu" },
       { "@type": "Country", name: "India" },
       { "@type": "Place", name: "Worldwide" },
     ],

@@ -15,7 +15,7 @@ import {
   webPageSchema,
 } from "@/lib/schema";
 
-const title = "Insights";
+const title = "AI Engineering Insights: RAG, LLMs & Agencies";
 const description =
   "Technical writing on AI systems that reach production: RAG pipeline architecture, fine-tuning versus retrieval, and choosing an AI development partner.";
 

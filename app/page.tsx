@@ -29,9 +29,9 @@ import {
   webPageSchema,
 } from "@/lib/schema";
 
-const title = "HEILC — AI & Digital Transformation Agency";
+const title = "HEILC — AI & Digital Transformation Agency in Chennai";
 const description =
-  "HEILC builds custom AI products, machine learning models and enterprise software that reach production — evaluated, deployed and monitored in your own cloud.";
+  "Chennai-based AI and digital agency building custom AI products, LLM chatbots, web and mobile apps and automation that reach production — for clients worldwide.";
 
 export const metadata: Metadata = {
   ...pageMetadata({ title, description, path: "/" }),

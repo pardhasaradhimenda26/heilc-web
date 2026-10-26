@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { usePersona } from "../features/PersonaContext";
-import { Compass } from "lucide-react";
 import { FOUNDERS } from "@/lib/content/team";
 
 /**
@@ -22,7 +21,7 @@ export default function About() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
-  const { detectionData, refineLocation, isRefining } = usePersona();
+  const { detectionData } = usePersona();
   const [timeState, setTimeState] = useState({ 
     time: "", 
     date: "",
@@ -234,20 +233,15 @@ export default function About() {
                 <div className="flex-1">
                   <p className="text-white/60 text-[10px] tracking-widest uppercase mb-1">LOCAL TIME</p>
                   <p className="text-white font-medium text-sm mb-0.5">
-                    {detectionData?.city || "Current Location"}
+                    {detectionData?.city || "Your local time"}
                   </p>
                   <p className="text-white/50 text-xs mb-2">{timeState.date || "Loading..."}</p>
                   <p style={{ fontFamily: "var(--font-bebas)" }} className="text-teal text-2xl tracking-wide leading-none mb-3">
                     {timeState.time || "..."}
                   </p>
-                  <button
-                    onClick={refineLocation}
-                    disabled={isRefining}
-                    className="inline-flex items-center gap-1.5 text-[10px] text-teal hover:text-teal font-semibold tracking-wider uppercase transition-colors disabled:opacity-50 cursor-pointer"
-                  >
-                    <Compass size={10} aria-hidden="true" className={isRefining ? "animate-spin" : ""} />
-                    {isRefining ? "Refining..." : "Refine by Signal"}
-                  </button>
+                  <p className="text-white/45 text-[10px] tracking-wider uppercase">
+                    {detectionData ? "Region-adapted" : "From your device clock"}
+                  </p>
                 </div>
 
                 {/* Analog Clock */}

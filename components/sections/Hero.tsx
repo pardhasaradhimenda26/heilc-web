@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, ChevronDown, Globe } from "lucide-react";
+import { Instagram, ChevronDown, Globe, Sparkles } from "lucide-react";
 import { usePersona } from "../features/PersonaContext";
+import { useAuth } from "../auth/AuthProvider";
 import LazySpline from "../features/LazySpline";
 import { SOCIAL_LINKS } from "@/lib/site";
 
@@ -61,7 +62,21 @@ const SPLINE_SRC =
 export default function Hero() {
   const [current, setCurrent] = useState(0);
   const { persona, detectionData, isAutoDetected } = usePersona();
-  const activeSlides = persona ? personaSlides[persona] || slides : slides;
+  const { isMember, firstName, profile } = useAuth();
+  const baseSlides = persona ? personaSlides[persona] || slides : slides;
+  // Members see their own name on the opening line; crawlers and first-time
+  // visitors get the server-rendered sentence unchanged.
+  const activeSlides =
+    isMember && firstName
+      ? [
+          {
+            ...baseSlides[0],
+            faded: `${firstName.toUpperCase()}, ${baseSlides[0].faded.replace(/^HEILC IS AN/, "MEET YOUR")}`,
+            sentence: `${firstName}, ${baseSlides[0].sentence}`,
+          },
+          ...baseSlides.slice(1),
+        ]
+      : baseSlides;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -83,27 +98,53 @@ export default function Hero() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-transparent z-[1] pointer-events-none" />
 
-      {/* Auto-detection pill */}
-      {isAutoDetected && detectionData && (
+      {/* Greeting / region pill */}
+      {isMember && firstName ? (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5 }}
-          className="absolute top-24 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-10 flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap"
-          style={{
-            background: "rgba(20,197,212,0.1)",
-            border: "1px solid rgba(20,197,212,0.25)",
-            backdropFilter: "blur(10px)",
-          }}
+          transition={{ delay: 0.4 }}
+          className="absolute top-24 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-10"
         >
-          <Globe size={12} className="text-teal" aria-hidden="true" />
-          <span className="text-white/70 text-xs">
-            Adapted for{" "}
-            <span className="text-teal font-semibold">
-              {detectionData.city}, {detectionData.country}
+          <Link
+            href="/account"
+            className="flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap"
+            style={{
+              background: "rgba(20,197,212,0.1)",
+              border: "1px solid rgba(20,197,212,0.25)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <Sparkles size={12} className="text-teal" aria-hidden="true" />
+            <span className="text-white/75 text-xs">
+              Welcome back, <span className="text-teal font-semibold">{firstName}</span>
+              {profile?.company ? ` · ${profile.company}` : ""}
             </span>
-          </span>
+          </Link>
         </motion.div>
+      ) : (
+        isAutoDetected &&
+        detectionData && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2 }}
+            className="absolute top-24 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-10 flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap"
+            style={{
+              background: "rgba(20,197,212,0.1)",
+              border: "1px solid rgba(20,197,212,0.25)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <Globe size={12} className="text-teal" aria-hidden="true" />
+            <span className="text-white/70 text-xs">
+              Adapted for{" "}
+              <span className="text-teal font-semibold">
+                {detectionData.city}, {detectionData.country}
+              </span>
+            </span>
+          </motion.div>
+        )
       )}
 
       {/* "POWERED BY AI" vertical text */}
@@ -215,10 +256,10 @@ export default function Hero() {
       {/* Bottom CTA */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col sm:flex-row gap-3 sm:gap-4 w-[90%] sm:w-auto text-center justify-center">
         <Link
-          href="/case-studies"
+          href={isMember ? "/#proposal" : "/case-studies"}
           className="px-5 py-2.5 sm:px-6 sm:py-3 bg-teal text-black text-xs sm:text-sm font-bold rounded-full hover:opacity-90 transition-opacity block sm:inline-block"
         >
-          Explore Case Studies
+          {isMember ? "Generate my proposal" : "Explore Case Studies"}
         </Link>
         <Link
           href="/contact"

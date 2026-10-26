@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
+import { AuthProvider } from "@/components/auth/AuthProvider";
 import { PersonaProvider } from "@/components/features/PersonaContext";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
@@ -82,6 +83,15 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  // Search Console / Bing Webmaster ownership tags — set the env vars in Vercel.
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+      : {}),
+    ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } }
+      : {}),
+  },
   icons: {
     icon: [{ url: "/icon.png" }],
     shortcut: ["/icon.png"],
@@ -103,13 +113,15 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Skip to main content
         </a>
-        <PersonaProvider>
-          <SmoothScroll>
-            <LoadingScreen />
-            <CustomCursor />
-            {children}
-          </SmoothScroll>
-        </PersonaProvider>
+        <AuthProvider>
+          <PersonaProvider>
+            <SmoothScroll>
+              <LoadingScreen />
+              <CustomCursor />
+              {children}
+            </SmoothScroll>
+          </PersonaProvider>
+        </AuthProvider>
       </body>
     </html>
   );

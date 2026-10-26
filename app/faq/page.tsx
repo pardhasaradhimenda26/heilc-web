@@ -14,7 +14,7 @@ import {
   webPageSchema,
 } from "@/lib/schema";
 
-const title = "Frequently Asked Questions";
+const title = "FAQ — Working With an AI Agency";
 const description =
   "Straight answers on HEILC's security posture, IP ownership, MVP timelines, legacy integration, the pod model, cost optimisation and SLA tiers.";
 

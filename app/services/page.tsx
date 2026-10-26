@@ -13,7 +13,7 @@ import {
   webPageSchema,
 } from "@/lib/schema";
 
-const title = "AI & Software Services";
+const title = "AI, Web, App & Automation Services";
 const description =
   "Ten services across four capabilities and six build offerings — from RAG systems and fine-tuning to legacy modernisation, cloud platforms and design.";
 

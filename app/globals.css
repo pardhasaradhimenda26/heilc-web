@@ -295,3 +295,52 @@ body {
     animation: none !important;
   }
 }
+
+/* ── Hero robot: still poster → live Spline scene crossfade ─────────────── */
+.robot-stage {
+  background:
+    radial-gradient(circle at 70% 35%, rgba(20, 197, 212, 0.16) 0%, rgba(8, 8, 8, 0) 60%),
+    radial-gradient(circle at 25% 75%, rgba(124, 92, 191, 0.14) 0%, rgba(8, 8, 8, 0) 60%),
+    #080808;
+}
+.robot-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: opacity 900ms ease;
+}
+@media (orientation: landscape) {
+  /* Size the element to the image itself so the edge fade lands on the
+     image's edges, not the viewport's. */
+  .robot-poster {
+    inset: auto;
+    top: 0;
+    left: 50%;
+    width: auto;
+    max-width: none;
+    height: 100%;
+    transform: translateX(-50%);
+    object-fit: contain;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 78%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 8%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 78%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 8%);
+    mask-composite: intersect;
+  }
+}
+.robot-stage iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+.robot-stage[data-live="true"] iframe { opacity: 1; }
+.robot-stage[data-live="true"] .robot-poster { opacity: 0; }

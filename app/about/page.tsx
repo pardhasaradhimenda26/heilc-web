@@ -14,7 +14,7 @@ import {
   webPageSchema,
 } from "@/lib/schema";
 
-const title = "About HEILC";
+const title = "About Us — AI & Digital Agency in Chennai";
 const description =
   "HEILC is an AI and digital transformation agency in Chennai, founded by Pardhasaradhi Menda and Varshith Dondamuri, building AI systems that reach production.";
 

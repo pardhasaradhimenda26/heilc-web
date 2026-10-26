@@ -1,79 +1,121 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { rateLimit } from "@/lib/ratelimit";
+import { requireSignedIn } from "@/lib/supabase/server";
+import { ALL_CASE_STUDIES, CORE_FACTS, formatChunks, retrieve } from "@/lib/ai/knowledge";
+import { HEILC_VOICE, PERSONA_GUIDANCE, describeVisitor } from "@/lib/ai/voice";
+import { STREAM_HEADERS, streamText } from "@/lib/ai/llm";
+import { servicesForInterests } from "@/lib/onboarding";
 
 export const runtime = "edge";
 
+const INDUSTRIES = new Set([
+  "Healthcare",
+  "FinTech",
+  "EdTech",
+  "E-Commerce",
+  "Real Estate",
+  "HR & Recruitment",
+  "SaaS",
+  "Logistics",
+  "Manufacturing",
+  "Hospitality",
+  "Other",
+]);
+
 export async function POST(req: Request) {
-  const ip = req.headers.get("x-forwarded-for") 
-    || req.headers.get("x-real-ip") 
-    || "anonymous";
-  
-  const limit = rateLimit(ip, 5, 60000);
-  
+  const gate = await requireSignedIn();
+  if (!gate.ok) return gate.response;
+
+  const key = gate.user?.id ?? req.headers.get("x-forwarded-for") ?? "anonymous";
+  const limit = rateLimit(`casegen:${key}`, 4, 60_000);
   if (!limit.success) {
-    return new Response(
-      JSON.stringify({ 
-        error: "Too many requests. Please wait a moment.",
-        resetIn: Math.ceil(limit.resetIn / 1000) + " seconds"
-      }),
-      { 
-        status: 429,
-        headers: { 
-          "Content-Type": "application/json",
-          "X-RateLimit-Remaining": "0",
-          "Retry-After": String(Math.ceil(limit.resetIn / 1000))
-        }
-      }
+    return Response.json(
+      { error: "One proposal at a time — try again in a minute." },
+      { status: 429, headers: { "Retry-After": String(Math.ceil(limit.resetIn / 1000)) } },
     );
   }
 
-  const { industry, problem } = await req.json();
+  let industry = "";
+  let problem = "";
+  try {
+    const body = await req.json();
+    industry = String(body.industry ?? "").trim();
+    problem = String(body.problem ?? "").trim().slice(0, 1500);
+  } catch {
+    return Response.json({ error: "Invalid request." }, { status: 400 });
+  }
+  if (!INDUSTRIES.has(industry) || problem.length < 15) {
+    return Response.json(
+      { error: "Pick an industry and describe the problem in at least a sentence." },
+      { status: 400 },
+    );
+  }
 
-  const client = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  });
+  const profile = gate.profile;
+  const boostPaths = servicesForInterests(profile?.interests).map((s) => `/services/${s}`);
+  const chunks = retrieve(`${industry} ${problem} ${profile?.goal ?? ""}`, { boostPaths, k: 6, budget: 5200 });
+  const today = new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+  const preparedFor = profile
+    ? `${profile.full_name}${profile.company ? `, ${profile.company}` : ""}`
+    : "you";
+  const isStudent = profile?.persona === "student";
 
-  const prompt = `Generate a professional branded proposal for HEILC — an AI & Digital Transformation agency.
+  const system = `You write first-pass proposals for HEILC. This is what a founder would send after reading the client's note — not a brochure.
 
-Client Industry: ${industry}
-Client Problem: ${problem}
+${HEILC_VOICE}
 
-Write a concise, compelling proposal with these sections:
-1. **Understanding Your Challenge** (2-3 sentences)
-2. **Our Recommended Solution** (3-4 sentences, specific to their industry/problem)
-3. **Tech Stack We'd Use** (bullet list of 4-6 technologies)
-4. **Estimated Timeline** (4-week breakdown)
-5. **Why HEILC** (2-3 sentences on our edge)
-6. **Next Step** (single CTA sentence)
+PROPOSAL RULES
+- Restate their problem more precisely than they did. Name the decision or workflow the software must support.
+- Recommend the smallest thing that solves it. Name what you'd deliberately leave out of version one.
+- Name the HEILC services by their real names and link them, e.g. [Custom LLM & Chatbot Integration](/services/custom-llm-and-chatbot-integration).
+- "Closest thing we've built": pick from ${ALL_CASE_STUDIES.map((c) => `${c.title} (${c.path})`).join(", ")}. Say honestly how close it is. If none is relevant, say so plainly.
+- Write down your assumptions. Never state a price. 350–450 words. Markdown only, exactly the sections below, no extra preamble.
 
-Keep it professional, specific, and confident. Format with clear headers. Total length: 250-300 words.`;
+FORMAT
+# ${isStudent ? "Build plan" : "Proposal"} for ${preparedFor}
+Prepared ${today} by HEILC · first draft, to be confirmed on a call
 
-  const stream = await client.messages.stream({
-    model: "claude-sonnet-4-6",
-    max_tokens: 1024,
-    messages: [{ role: "user", content: prompt }],
-  });
+## What we heard
+## What we'd build
+## How we'd know it works
+## Closest thing we've built
+## ${isStudent ? "How to approach it" : "Plan"}
+(Bullets by week. ${isStudent ? "A learning-and-building plan the student can follow themselves." : "Week 1 is always discovery and the evaluation set; total 3–6 weeks to a production first version."})
+## Stack
+(4–7 bullets, each with a short reason)
+## What we'd need from you
+## Open questions
+## Next step
+${isStudent ? "(Point to the most relevant /insights article and the contact form for collaboration.)" : "(One or two sentences: the paid discovery week, or press \"Send to the team\" below and a founder replies within one business day.)"}
 
-  const encoder = new TextEncoder();
+— Pardhasaradhi & Varshith, HEILC
 
-  const readable = new ReadableStream({
-    async start(controller) {
-      for await (const chunk of stream) {
-        if (
-          chunk.type === "content_block_delta" &&
-          chunk.delta.type === "text_delta"
-        ) {
-          controller.enqueue(encoder.encode(chunk.delta.text));
-        }
+THE CLIENT
+${describeVisitor(profile, gate.user?.email)}
+${profile ? PERSONA_GUIDANCE[profile.persona] : ""}
+
+HEILC KNOWLEDGE — the only facts you may state about HEILC
+${CORE_FACTS}
+
+${formatChunks(chunks)}`;
+
+  const supabase = gate.supabase;
+  const userId = gate.user?.id;
+
+  const stream = await streamText({
+    system,
+    messages: [{ role: "user", content: `Industry: ${industry}\nWhat they told us: ${problem}` }],
+    maxTokens: 900,
+    temperature: 0.4,
+    onComplete: async (proposal) => {
+      if (supabase && userId && proposal.length > 200) {
+        await supabase.from("requests").insert({
+          user_id: userId,
+          kind: "proposal",
+          payload: { industry, problem, proposal: proposal.slice(0, 8000) },
+        });
       }
-      controller.close();
     },
   });
 
-  return new Response(readable, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Transfer-Encoding": "chunked",
-    },
-  });
+  return new Response(stream, { headers: STREAM_HEADERS });
 }

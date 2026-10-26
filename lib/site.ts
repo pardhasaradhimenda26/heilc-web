@@ -32,6 +32,20 @@ export const SITE_TAGLINE = "Where Human Intelligence Meets the Future";
 
 export const CONTACT_EMAIL = "hello@heilc.com";
 
+/**
+ * DPDP Act 2023, s.8(9) and s.6(3): the person who answers questions about
+ * personal data and handles grievances must be published. Override the email
+ * with NEXT_PUBLIC_GRIEVANCE_EMAIL if a dedicated inbox exists.
+ */
+export const GRIEVANCE_OFFICER = {
+  name: "Pardhasaradhi Menda",
+  role: "Grievance Officer & privacy contact",
+  email: process.env.NEXT_PUBLIC_GRIEVANCE_EMAIL || CONTACT_EMAIL,
+} as const;
+
+/** Bump whenever the privacy notice text changes; stored with every consent. */
+export const PRIVACY_NOTICE_VERSION = "2026-10-26";
+
 /** Locality-level only — HEILC has no published street address. */
 export const BUSINESS_LOCATION = {
   addressLocality: "Chennai",

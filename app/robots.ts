@@ -1,13 +1,16 @@
 import { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/site";
 
+/** Signed-in and auth-flow pages carry no public content. */
+const PRIVATE = ["/api/", "/account", "/welcome", "/login", "/auth/"];
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/"],
+        disallow: PRIVATE,
       },
       {
         // Answer engines and AI crawlers are explicitly welcome.
@@ -25,9 +28,12 @@ export default function robots(): MetadataRoute.Robots {
           "cohere-ai",
           "Applebot-Extended",
           "meta-externalagent",
+          "DuckAssistBot",
+          "MistralAI-User",
+          "YouBot",
         ],
         allow: "/",
-        disallow: ["/api/"],
+        disallow: PRIVATE,
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
