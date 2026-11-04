@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { getAdminSupabase } from "@/lib/supabase/server";
 import { sendEmail } from "@/lib/email";
@@ -8,6 +9,13 @@ export const dynamic = "force-dynamic";
 
 const DAY = 24 * 60 * 60 * 1000;
 
+/** Constant-time comparison so the secret can't be guessed by timing. */
+function safeEqual(a: string, b: string): boolean {
+  const x = Buffer.from(a);
+  const y = Buffer.from(b);
+  return x.length === y.length && timingSafeEqual(x, y);
+}
+
 /**
  * Runs once a day (vercel.json cron, free on Hobby):
  *  1. Keeps the free Supabase project awake (free projects pause after a
@@ -17,7 +25,7 @@ const DAY = 24 * 60 * 60 * 1000;
  */
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
-  if (!secret || req.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!secret || !safeEqual(req.headers.get("authorization") ?? "", `Bearer ${secret}`)) {
     return NextResponse.json({ error: "unauthorised" }, { status: 401 });
   }
 

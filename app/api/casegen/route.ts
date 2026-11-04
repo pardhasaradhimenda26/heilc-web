@@ -1,4 +1,4 @@
-import { rateLimit } from "@/lib/ratelimit";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { requireSignedIn } from "@/lib/supabase/server";
 import { ALL_CASE_STUDIES, CORE_FACTS, formatChunks, retrieve } from "@/lib/ai/knowledge";
 import { HEILC_VOICE, PERSONA_GUIDANCE, describeVisitor } from "@/lib/ai/voice";
@@ -25,8 +25,8 @@ export async function POST(req: Request) {
   const gate = await requireSignedIn();
   if (!gate.ok) return gate.response;
 
-  const key = gate.user?.id ?? req.headers.get("x-forwarded-for") ?? "anonymous";
-  const limit = rateLimit(`casegen:${key}`, 4, 60_000);
+  const key = gate.user?.id ?? clientIp(req);
+  const limit = await rateLimit(`casegen:${key}`, 4, 60_000);
   if (!limit.success) {
     return Response.json(
       { error: "One proposal at a time — try again in a minute." },

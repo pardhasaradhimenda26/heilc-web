@@ -47,9 +47,13 @@ Supabase's built-in mailer only sends to your own team, so real visitors need cu
 
 https://console.groq.com/keys → **Create API key** → copy. Free limits are roughly 30 requests/minute and 1,000/day on the default model, with an automatic fallback to a second free model. That's plenty for an agency site.
 
-## 6. Phone sign-in (optional — not free)
+## 6. Mobile number sign-in and security
 
-SMS costs money with every provider (Supabase needs Twilio/MessageBird/Vonage; Firebase only sends SMS on its paid plan). The code is ready: connect an SMS provider in Supabase → Providers → Phone, then set `NEXT_PUBLIC_ENABLE_PHONE_LOGIN=true`. Until then, onboarding still asks for an optional phone/WhatsApp number for call-backs.
+See `docs/SECURITY.md` for the following:
+
+- Mobile sign-in needs an SMS provider, which costs money. Hide the button until one is connected by setting `NEXT_PUBLIC_AUTH_PROVIDERS=google,email`.
+- The Turnstile bot check.
+- The firewall and the database hardening migration (`0002`).
 
 ## 7. Vercel environment variables
 

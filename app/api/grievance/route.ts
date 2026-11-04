@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { rateLimit } from "@/lib/ratelimit";
-import { getServerSupabase } from "@/lib/supabase/server";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
+import { getAdminSupabase, getServerSupabase } from "@/lib/supabase/server";
 import { escapeHtml, sendEmail, teamInbox } from "@/lib/email";
 import { GRIEVANCE_OFFICER } from "@/lib/site";
 
@@ -19,8 +19,8 @@ const CATEGORIES = new Set([
 
 /** DPDP s.13 — open to everyone, signed in or not. */
 export async function POST(req: Request) {
-  const ip = req.headers.get("x-forwarded-for") ?? "anonymous";
-  const limit = rateLimit(`grievance:${ip}`, 3, 10 * 60_000);
+  const ip = clientIp(req);
+  const limit = await rateLimit(`grievance:${ip}`, 3, 10 * 60_000);
   if (!limit.success) {
     return NextResponse.json({ error: "Please wait a few minutes before submitting again." }, { status: 429 });
   }
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       data: { user },
     } = await supabase.auth.getUser();
     // No .select(): anonymous visitors may insert but not read grievances back.
-    await supabase
+    await (getAdminSupabase() ?? supabase)
       .from("grievances")
       .insert({ reference, user_id: user?.id ?? null, name, email, category, details });
   }

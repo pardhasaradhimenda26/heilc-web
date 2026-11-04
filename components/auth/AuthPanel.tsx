@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Mail, Phone, ArrowLeft, ShieldCheck } from "lucide-react";
 import { useAuth } from "./AuthProvider";
-import { LOGIN_METHODS } from "@/lib/supabase/config";
+import { LOGIN_METHODS, TURNSTILE_SITE_KEY } from "@/lib/supabase/config";
+import Turnstile, { type TurnstileHandle } from "./Turnstile";
 import {
   CONSENT_NOTICE,
   NOTICE_LANGUAGES,
@@ -61,6 +62,8 @@ export default function AuthPanel({
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [captcha, setCaptcha] = useState<string | null>(null);
+  const turnstile = useRef<TurnstileHandle>(null);
   const notice = CONSENT_NOTICE[lang];
 
   useEffect(() => setError(null), [step]);
@@ -71,6 +74,9 @@ export default function AuthPanel({
   const afterOtp = async () => {
     const supabase = await getClient();
     const { data } = (await supabase?.auth.getUser()) ?? { data: { user: null } };
+    if (data.user) {
+      await supabase?.from("security_events").insert({ user_id: data.user.id, event: "sign_in" });
+    }
     const profile = data.user ? await refreshProfile() : null;
     onDone?.();
     window.location.assign(profile ? next : `/welcome?next=${encodeURIComponent(next)}`);
@@ -94,39 +100,35 @@ export default function AuthPanel({
     }
   };
 
-  const sendEmailCode = async () => {
-    if (!agreed || !/^\S+@\S+\.\S+$/.test(email)) {
-      setError("Enter a valid email address.");
-      return;
+  /** Codes are requested through our server, which validates and rate-limits. */
+  const sendCode = async (channel: "email" | "phone") => {
+    const identifier = channel === "email" ? email : phone;
+    if (!agreed) return;
+    if (!identifier.trim()) {
+      return setError(channel === "email" ? "Enter your email address." : "Enter your mobile number.");
     }
+    if (TURNSTILE_SITE_KEY && !captcha) return setError("Please complete the security check.");
     setBusy(true);
+    setError(null);
     savePendingConsent(lang);
-    const supabase = await getClient();
-    const { error: err } = (await supabase?.auth.signInWithOtp({
-      email: email.trim(),
-      options: { shouldCreateUser: true, emailRedirectTo: callbackUrl() },
-    })) ?? { error: null };
-    setBusy(false);
-    if (err) return setError(err.message);
-    setStep("email-code");
-  };
-
-  const sendPhoneCode = async () => {
-    const normalised = phone.replace(/[^\d+]/g, "");
-    if (!agreed || !/^\+\d{8,15}$/.test(normalised)) {
-      setError("Enter your number with country code, e.g. +91 98765 43210.");
-      return;
+    try {
+      const res = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ channel, identifier, captchaToken: captcha ?? undefined, next }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { identifier?: string; error?: string };
+      if (!res.ok || !data.identifier) return setError(data.error ?? "Something went wrong. Please try again.");
+      if (channel === "email") setEmail(data.identifier);
+      else setPhone(data.identifier);
+      setCode("");
+      setStep(channel === "email" ? "email-code" : "phone-code");
+    } catch {
+      setError("Network problem — check your connection and try again.");
+    } finally {
+      setBusy(false);
+      turnstile.current?.reset(); // each token works once
     }
-    setBusy(true);
-    savePendingConsent(lang);
-    const supabase = await getClient();
-    const { error: err } = (await supabase?.auth.signInWithOtp({ phone: normalised })) ?? {
-      error: null,
-    };
-    setBusy(false);
-    if (err) return setError(err.message);
-    setPhone(normalised);
-    setStep("phone-code");
   };
 
   const verify = async (kind: "email" | "sms") => {
@@ -263,12 +265,12 @@ export default function AuthPanel({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            void (step === "email" ? sendEmailCode() : sendPhoneCode());
+            void sendCode(step === "email" ? "email" : "phone");
           }}
           className="space-y-3"
         >
           <label htmlFor="auth-id" className="block text-white/50 text-xs">
-            {step === "email" ? "Your email address" : "Mobile number with country code"}
+            {step === "email" ? "Your email address" : "Your mobile number"}
           </label>
           <input
             id="auth-id"
@@ -277,15 +279,20 @@ export default function AuthPanel({
             autoFocus
             value={step === "email" ? email : phone}
             onChange={(e) => (step === "email" ? setEmail(e.target.value) : setPhone(e.target.value))}
-            placeholder={step === "email" ? "you@company.com" : "+91 98765 43210"}
+            placeholder={step === "email" ? "you@company.com" : "98765 43210"}
+            maxLength={step === "email" ? 254 : 20}
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-teal/40"
           />
+          {step === "phone" && (
+            <p className="text-white/45 text-[11px]">Indian mobile numbers. We&apos;ll text you a 6-digit code.</p>
+          )}
+          <Turnstile ref={turnstile} onToken={setCaptcha} />
           <button
             type="submit"
-            disabled={!agreed || busy}
+            disabled={!agreed || busy || Boolean(TURNSTILE_SITE_KEY && !captcha)}
             className={`${buttonBase} bg-teal text-black hover:opacity-90`}
           >
-            {busy ? "Sending…" : "Send me a code"}
+            {busy ? "Sending…" : step === "email" ? "Email me a code" : "Text me a code"}
           </button>
           <button
             type="button"

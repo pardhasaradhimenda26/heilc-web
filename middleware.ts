@@ -1,14 +1,21 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { AUTH_ENABLED, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/supabase/config";
+import { firewall } from "@/lib/security/firewall";
+
+const SESSION_PATHS = /^\/(api|account|welcome|auth)(\/|$)/;
 
 /**
- * Keeps the Supabase session cookie fresh on the routes that read it on the
- * server. Content pages are not matched, so they stay fully static and cached.
+ * 1. Firewall: every request is screened first (lib/security/firewall.ts).
+ * 2. Keeps the Supabase session cookie fresh on the routes that read it on
+ *    the server. Content pages skip this, so they stay static and cached.
  */
 export async function middleware(request: NextRequest) {
+  const blocked = firewall(request);
+  if (blocked) return blocked;
+
   let response = NextResponse.next({ request });
-  if (!AUTH_ENABLED) return response;
+  if (!AUTH_ENABLED || !SESSION_PATHS.test(request.nextUrl.pathname)) return response;
 
   const supabase = createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     cookies: {
@@ -30,5 +37,6 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/:path*", "/account/:path*", "/welcome", "/auth/:path*"],
+  // Everything except build assets and images served from /public/assets.
+  matcher: ["/((?!_next/static|_next/image|assets/|favicon\\.ico).*)"],
 };

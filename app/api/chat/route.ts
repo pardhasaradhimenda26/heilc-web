@@ -1,4 +1,4 @@
-import { rateLimit } from "@/lib/ratelimit";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { requireSignedIn } from "@/lib/supabase/server";
 import { CORE_FACTS, formatChunks, retrieve } from "@/lib/ai/knowledge";
 import { HEILC_VOICE, PERSONA_GUIDANCE, describeVisitor } from "@/lib/ai/voice";
@@ -31,8 +31,8 @@ export async function POST(req: Request) {
   const gate = await requireSignedIn();
   if (!gate.ok) return gate.response;
 
-  const key = gate.user?.id ?? req.headers.get("x-forwarded-for") ?? "anonymous";
-  const limit = rateLimit(`chat:${key}`, 12, 60_000);
+  const key = gate.user?.id ?? clientIp(req);
+  const limit = await rateLimit(`chat:${key}`, 12, 60_000);
   if (!limit.success) {
     return Response.json(
       { error: "Too many messages — give it a few seconds." },

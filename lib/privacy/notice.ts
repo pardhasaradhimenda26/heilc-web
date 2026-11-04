@@ -159,6 +159,8 @@ export const PROCESSORS: Processor[] = [
   { name: "Groq (and Anthropic as fallback)", role: "Generates assistant replies and proposals", location: "United States" },
   { name: "Resend", role: "Sends sign-in codes and delivers request notifications to the HEILC team", location: "United States (sending region: Tokyo, Japan)" },
   { name: "Google and Meta (Facebook)", role: "Only if you choose them to sign in; they confirm your identity", location: "As per their own policies" },
+  { name: "SMS provider (e.g. Twilio or MSG91)", role: "Only if you sign in with your mobile number; texts you the sign-in code", location: "As per the provider connected (India-registered sender)" },
+  { name: "Cloudflare Turnstile", role: "Bot check on email/mobile sign-in (sees your IP address and browser signals, no tracking cookies)", location: "Global network" },
   { name: "Spline", role: "Serves the 3D robot on the homepage (receives your IP address as any web request does)", location: "As per their own policy" },
 ];
 
