@@ -24,7 +24,8 @@ import { FOUNDERS, type TeamMember } from "./content/team";
 import { CASE_STUDIES, type CaseStudy } from "./content/case-studies";
 import { wordCount, type Article } from "./content/insights";
 
-const LOGO_URL = absoluteUrl("/assets/heilc-logo.png");
+// Opaque black square: the transparent white mark disappears on Google's white backgrounds.
+const LOGO_URL = absoluteUrl("/icon.png");
 const OG_URL = absoluteUrl(OG_IMAGE.url);
 
 const ORG_DESCRIPTION =

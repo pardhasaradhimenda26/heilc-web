@@ -92,11 +92,6 @@ export const metadata: Metadata = {
       ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } }
       : {}),
   },
-  icons: {
-    icon: [{ url: "/icon.png" }],
-    shortcut: ["/icon.png"],
-    apple: [{ url: "/icon.png", sizes: "180x180", type: "image/png" }],
-  },
 };
 
 export default function RootLayout({
@@ -106,9 +101,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`grain ${bebasNeue.variable}`}>
-      <head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
-      </head>
       <body>
         <a href="#main" className="skip-link">
           Skip to main content
